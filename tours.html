@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HopNTrip | Sabah Tourism Agency</title>
+</head>
+
+<style>
+:root {
+--primary: #172443; /* Navy blue */
+--light-text: #666;
+--dark-text: #333;
+--light-bg: #f9f9f9;
+--card-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background-color: white;
+color: var(--dark-text);
+line-height: 1.6;
+}
+
+/* Header layout */
+nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 999;
+    }
+
+    /* === BRAND NAME & LOGO === */
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      z-index: 1002;
+    }
+
+    .brand-logo {
+      height: 35px;
+      margin-right: 10px;
+      display: none; /* hidden by default, only shown on desktop */
+    }
+
+    .brand-name {
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* === DESKTOP POSITIONING === */
+    @media (min-width: 820px) {
+      .nav-brand {
+        position: absolute;
+        left: 20px;
+        top: 13px;
+      }
+
+      .brand-logo {
+        display: block;
+      }
+
+      .brand-name {
+        display: none;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+
+      .nav-center {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nav-toggle,
+      .sidebar-menu {
+        display: none;
+      }
+    }
+
+    /* === MOBILE POSITIONING === */
+    @media (max-width: 819px) {
+      .nav-brand {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .brand-logo {
+        display: none;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: 14px;
+        left: 15px;
+      }
+
+      .nav-toggle {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .nav-center {
+        display: none;
+      }
+    }
+
+    /* === NAV LINKS === */
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: white;
+      padding: 20px 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #fdff9d;
+    }
+
+    /* === SIDEBAR MENU === */
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #172443;
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar-menu.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px solid #2F4F4F;
+      padding-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .sidebar-menu a:hover {
+      color: #fdff9d;
+    }
+
+    /* Sidebar Dropdown Styles */
+    .sidebar-dropdown {
+      position: relative;
+    }
+
+    .sidebar-dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sidebar-dropdown-header a {
+      color: white;
+      font-size: 1.0rem;
+      transition: color 0.3s;
+      flex: 1;
+    }
+
+    .sidebar-dropdown-header a:hover {
+      color: #fdff9d;
+    }
+
+    .dropdown-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      transition: color 0.3s;
+    }
+
+    .dropdown-toggle-btn:hover {
+      color: #fdff9d;
+    }
+
+    .sidebar-dropdown-menu {
+      display: none;
+      background-color: #172443;
+      margin-top: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .sidebar-dropdown-menu.active {
+      display: block;
+    }
+
+    .sidebar-dropdown-menu a {
+      font-size: 1rem;
+      padding: 12px 15px;
+      border-bottom: 1px solid #2F4F4F;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    .sidebar-dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-dropdown-menu a:hover {
+      color: #fdff9d;
+    }
+
+    /* Dropdown container */
+    .nav-item.dropdown {
+      position: relative;
+    }
+
+    /* Toggle link */
+    .dropdown-toggle {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      color: #172443;
+      border-radius: 5px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      flex-direction: column;
+      width: 220px; 
+      height: 220px; 
+      top: 42px;
+      left: 0;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #172443;
+      font-size: 14px;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #172443;
+      color: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    /* Show dropdown on hover for desktop */
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: flex;
+    }
+
+    /* Responsive fix: hide dropdown hover on small screen */
+    @media (max-width: 819px) {
+      .dropdown-menu {
+        position: static;
+        display: none;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .dropdown-menu a {
+        padding-left: 30px;
+        font-size: 1rem;
+      }
+
+      .nav-item.dropdown.active .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .sidebar-menu.active #hamburgerBtn {
+      color: white;
+    }
+
+    /* === LANGUAGE DROPDOWN === */
+    .lang-dropdown {
+      cursor: pointer;
+    }
+
+    .lang-icon {
+      font-size: 1.5rem;
+      color: white;
+      margin-top: -2px;
+      display: inline-block;
+    }
+
+    .lang-options {
+      display: none;
+      position: absolute;
+      top: 30px;
+      background-color: white;
+      color: #172443;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .lang-options div {
+      padding: 8px 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .lang-options div:hover {
+      background-color: #f0f0f0;
+    }
+
+    .lang-dropdown.active .lang-options {
+      display: block;
+    }
+
+/* Hero Section */
+.hero {
+background: linear-gradient(rgba(0, 0, 0, 0.299), rgba(0, 0, 0, 0.348)), url('image/tour_bg.jpg') center/cover;
+padding: 125px 40px;
+color: white;
+text-align: center;
+}
+
+.hero-content {
+max-width: 900px;
+margin: 0 auto;
+}
+
+.hero h1 {
+font-size: 40px;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 17px;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Main Content */
+.container {
+max-width: 1200px;
+margin: 80px auto;
+padding: 0 20px;
+display: flex;
+gap: 30px;
+}
+
+/* Filter Toggle Button */
+.filter-toggle-btn {
+display: none;
+background: var(--primary);
+color: white;
+border: none;
+padding: 12px 20px;
+border-radius: 8px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s;
+font-size: 0.95rem;
+margin-bottom: 20px;
+width: 100%;
+}
+
+.filter-toggle-btn:hover {
+background: #0e1a33;
+}
+
+.filter-toggle-btn.active {
+background: #0e1a33;
+}
+
+/* Tour Filters */
+.tour-filters {
+width: 250px;
+background: var(--light-bg);
+border-radius: 15px;
+padding: 20px;
+height: fit-content;
+position: sticky;
+top: 20px;
+}
+
+.filter-group {
+margin-bottom: 20px;
+}
+
+.filter-group h3 {
+margin-bottom: 12px;
+color: var(--primary);
+font-size: 1rem;
+}
+
+.filter-options {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.filter-option {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.filter-option input {
+width: 16px;
+height: 16px;
+}
+
+.filter-option label {
+cursor: pointer;
+font-size: 0.9rem;
+}
+
+.filter-btn {
+background: var(--primary);
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 8px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s;
+width: 100%;
+font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+background: #0e1a33;
+}
+
+/* Tour Packages */
+.tours-container {
+flex: 1;
+}
+
+.section-title {
+text-align: left;
+margin-bottom: 25px;
+}
+
+.section-title h2 {
+font-size: 2rem;
+margin-bottom: 12px;
+position: relative;
+display: inline-block;
+color: var(--primary);
+}
+
+.section-title h2:after {
+content: '';
+position: absolute;
+bottom: -8px;
+left: 0;
+width: 60px;
+height: 3px;
+background: var(--accent);
+}
+
+.section-title p {
+color: var(--light-text);
+max-width: 700px;
+margin: 15px 0 0;
+font-size: 1rem;
+}
+
+.tours-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 20px;
+margin-bottom: 30px;
+}
+
+.tour-card {
+background: white;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: var(--card-shadow);
+transition: all 0.3s;
+border: 1px solid #eee;
+}
+
+.tour-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tour-image {
+height: 160px;
+background-size: cover;
+background-position: center;
+}
+
+.tour-content {
+padding: 15px;
+}
+
+.card-badge {
+display: inline-block;
+background: var(--accent);
+color: white;
+padding: 4px 12px;
+border-radius: 20px;
+font-weight: 500;
+font-size: 0.8rem;
+margin-bottom: 10px;
+}
+
+.tour-content h3 {
+color: var(--primary);
+margin-bottom: 10px;
+font-size: 1.1rem;
+line-height: 1.3;
+}
+
+.tour-location {
+display: flex;
+align-items: center;
+gap: 5px;
+color: var(--light-text);
+margin-bottom: 10px;
+font-size: 0.85rem;
+}
+
+.tour-highlights {
+margin-bottom: 15px;
+padding-bottom: 15px;
+border-bottom: 1px solid #eee;
+}
+
+.tour-highlights ul {
+padding-left: 18px;
+color: var(--light-text);
+font-size: 0.85rem;
+line-height: 1.5;
+}
+
+.tour-highlights li {
+margin-bottom: 6px;
+}
+
+.tour-details {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.tour-meta {
+display: flex;
+gap: 10px;
+font-size: 0.8rem;
+}
+
+.tour-meta-item {
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 0.8rem;
+color: var(--light-text);
+}
+
+.price-info {
+text-align: right;
+}
+
+.price {
+font-size: 1.3rem;
+font-weight: 700;
+color: var(--primary);
+}
+
+.price span {
+font-size: 0.9rem;
+font-weight: normal;
+color: var(--light-text);
+}
+
+.book-btn {
+background: var(--primary);
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 20px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s;
+margin-top: 8px;
+font-size: 0.85rem;
+}
+
+.book-btn:hover {
+background: #0e1a33;
+}
+
+/* Pagination */
+.pagination {
+display: flex;
+justify-content: center;
+margin: 40px 0;
+}
+
+.pagination-list {
+display: flex;
+gap: 8px;
+list-style: none;
+}
+
+.pagination-item {
+width: 36px;
+height: 36px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+font-size: 0.9rem;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.pagination-item:hover {
+background: var(--light-bg);
+}
+
+.pagination-item.active {
+background: var(--primary);
+color: white;
+}
+
+.pagination-item.disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+
+/* Reviews Section */
+.reviews {
+background: var(--light-bg);
+padding: 50px 0;
+margin: 60px 0;
+}
+
+.reviews-container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0;
+overflow: hidden;
+}
+
+.reviews-grid {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: stretch;
+gap: 20px;
+margin-top: 30px;
+flex-wrap: nowrap;
+overflow-x: auto;
+padding-bottom: 10px;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.review-card {
+background: white;
+border-radius: 10px;
+padding: 20px;
+box-shadow: var(--card-shadow);
+min-width: 280px;
+max-width: 320px;
+flex-shrink: 0;
+}
+
+.review-header {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 15px;
+}
+
+.review-avatar {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: #eee;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+color: var(--primary);
+}
+
+.reviewer-info h4 {
+color: var(--primary);
+margin-bottom: 4px;
+font-size: 0.95rem;
+}
+
+.review-date {
+color: var(--light-text);
+font-size: 0.8rem;
+}
+
+.review-stars {
+color: #FFD700;
+margin-bottom: 12px;
+font-size: 0.9rem;
+}
+
+.review-content {
+color: var(--dark-text);
+line-height: 1.5;
+font-size: 0.9rem;
+}
+
+/* Reviews Section Title */
+.reviews .section-title {
+text-align: left;
+margin-left: 40px;
+}
+
+.reviews .section-title h2 {
+font-size: 2.2rem;
+margin-bottom: 15px;
+position: relative;
+display: inline-block;
+color: var(--primary);
+}
+/* ======== TRUST BADGES ======== */
+.trust-badges {
+background-color: #ffffff;
+padding: 40px 20px;
+text-align: center;
+}
+
+.trust-badges h2 {
+margin-bottom: 25px;
+font-size: 1.4rem;
+color: var(--primary);
+}
+
+.badges-container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: nowrap;
+gap: 20px;
+max-width: 100%;
+margin: 0 auto;
+overflow: hidden;
+}
+
+.badges-container img {
+height: 35px;
+width: auto;
+object-fit: contain;
+}
+
+.vertical-footer {
+      background-color: #172443;
+      color: #ffffff;
+      text-align: center;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .vertical-footer .footer-title {
+      font-size: 1rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    .vertical-footer .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .vertical-footer .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .footer-links a:hover {
+      color: #fdff9d;
+    }
+
+    #footerModal{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.6);z-index:999;
+      justify-content:center;align-items:center
+    }
+
+    #footerModal .content{
+      background:#fff;
+      color:#000;
+      width:92%;
+      max-width:600px;
+      padding:24px 28px 32px;
+      border-radius:12px;
+      position:relative;
+      animation:slideIn .35s ease;
+      overflow-y:auto;
+      max-height:85vh;
+      text-align: justify;
+      text-align: left;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    @keyframes slideIn{
+      from{transform:translateY(-40px);opacity:0}
+      to
+      {transform:translateY(0);opacity:1}
+    }
+    
+    #footerModal .close{
+      font-size: 26px;
+      font-weight: bold;
+      top: 14px;
+      right: 20px;
+      cursor: pointer;
+      color: #333;
+      background: none;
+      border: none;
+      position: absolute;
+      z-index: 1002;
+      transition: color 0.2s ease;
+    }
+
+    #footerModal .close:hover {
+      color: #c00;
+    }
+
+    #footerModalTitle {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody h3 {
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-size: 22px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody p {
+      margin-bottom: 14px;
+      line-height: 1.6;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    #footerModalBody ol li {
+      margin-bottom: 12px;
+      text-align: justify;
+      line-height: 1.6;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol li p {
+      margin-bottom: 8px;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody strong {
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody a {
+      color: #ffb347;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #footerModalBody a:hover {
+      color: #ffa726;
+      text-decoration: underline;
+    }
+
+    #footerModal ul{
+      padding-left:20px
+    }
+
+    .vertical-footer .social-icons {
+      display: flex;
+      flex-direction: row; 
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .vertical-footer .social-icons img {
+      width: 25px; 
+      height: 25px; 
+      object-fit: contain;
+      transition: transform 0.3s ease; 
+    }
+
+    .vertical-footer .social-icons img:hover {
+      transform: scale(1.1);
+    }
+
+    .vertical-footer .footer-chat {
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .chat-link {
+      color: #ff0000;
+      text-decoration: underline;
+    }
+    
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #f44336;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-body {
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 14px;
+      color: #333;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      line-height: 1.4;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      font-size: 14px;
+      border-right: 1px solid #ccc;
+    }
+
+    .chat-input button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+/* === RESPONSIVE DESIGN WITH FILTER TOGGLE === */
+
+/* Tablet and Small Desktop (900px and below) */
+@media (max-width: 900px) {
+header {
+flex-direction: column;
+gap: 12px;
+padding: 12px 15px;
+}
+
+nav {
+gap: 12px;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.hero h1 {
+font-size: 2.2rem;
+}
+
+.container {
+flex-direction: column;
+gap: 20px;
+}
+
+.filter-toggle-btn {
+display: block;
+margin-bottom: 15px;
+}
+
+.tour-filters {
+width: 100%;
+position: static;
+margin-bottom: 20px;
+display: none;
+}
+
+.tour-filters.active {
+display: block;
+}
+
+.tours-grid {
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Reviews Section - Keep in one row */
+.reviews {
+padding: 45px 0;
+margin: 50px 0;
+}
+
+.reviews-container {
+padding: 0;
+overflow: hidden;
+}
+
+.reviews .section-title {
+margin-left: 35px;
+}
+
+.reviews-grid {
+gap: 18px;
+margin-top: 25px;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+/* Trust Badges - Keep in one row */
+.trust-badges {
+padding: 35px 20px;
+}
+
+.trust-badges h2 {
+font-size: 1.3rem;
+margin-bottom: 20px;
+}
+
+.badges-container {
+gap: 15px;
+}
+
+.badges-container img {
+height: 30px;
+}
+
+.review-card {
+min-width: 260px;
+max-width: 300px;
+padding: 18px;
+}
+}
+
+/* Mobile (600px and below) */
+@media (max-width: 600px) {
+.hero {
+padding: 80px 15px;
+}
+
+.hero h1 {
+font-size: 1.5rem;
+}
+
+.hero p {
+font-size: 0.95rem;
+margin-bottom: 10px;
+}
+
+.container {
+gap: 15px;
+}
+
+.filter-toggle-btn {
+padding: 10px 16px;
+font-size: 0.9rem;
+margin-bottom: 10px;
+}
+
+.tour-filters {
+padding: 15px;
+border-radius: 10px;
+}
+
+.filter-group {
+margin-bottom: 15px;
+}
+
+.filter-group h3 {
+font-size: 0.95rem;
+margin-bottom: 8px;
+}
+
+.filter-option {
+gap: 6px;
+}
+
+.filter-option input {
+width: 14px;
+height: 14px;
+}
+
+.filter-option label {
+font-size: 0.85rem;
+}
+
+.filter-btn {
+padding: 8px 14px;
+font-size: 0.85rem;
+}
+
+.section-title h2 {
+font-size: 1.6rem;
+}
+
+.section-title h2:after {
+width: 50px;
+bottom: -6px;
+}
+
+.tours-grid {
+grid-template-columns: 1fr;
+gap: 15px;
+}
+
+.tour-card {
+border-radius: 10px;
+}
+
+.tour-content {
+padding: 12px;
+}
+
+.tour-content h3 {
+font-size: 1rem;
+}
+
+/* Reviews Section - Keep in one row */
+.reviews {
+padding: 40px 0;
+margin: 40px 0;
+}
+
+.reviews-container {
+padding: 0;
+overflow: hidden;
+}
+
+.reviews .section-title {
+margin-left: 25px;
+}
+
+.reviews .section-title h2 {
+font-size: 1.6rem;
+margin-bottom: 12px;
+}
+
+.reviews-grid {
+gap: 15px;
+margin-top: 20px;
+padding-left: 15px;
+padding-right: 15px;
+}
+
+/* Trust Badges - Mobile */
+.trust-badges {
+padding: 30px 15px;
+}
+
+.trust-badges h2 {
+font-size: 1.2rem;
+margin-bottom: 15px;
+}
+
+.badges-container {
+gap: 10px;
+}
+
+.badges-container img {
+height: 25px;
+}
+
+.review-card {
+min-width: 250px;
+max-width: 280px;
+padding: 15px;
+}
+
+.review-avatar {
+width: 40px;
+height: 40px;
+font-size: 1rem;
+}
+
+.reviewer-info h4 {
+font-size: 0.9rem;
+}
+
+.review-content {
+font-size: 0.85rem;
+}
+
+.pagination-list {
+gap: 5px;
+}
+
+.pagination-item {
+width: 32px;
+height: 32px;
+font-size: 0.85rem;
+}
+}
+
+/* Desktop and Large Screens (901px and above) */
+@media (min-width: 901px) {
+  /* Reviews Section - Keep in one row */
+  .reviews {
+    padding: 60px 0;
+    margin: 70px 0;
+  }
+  
+  .reviews-container {
+    max-width: 1400px;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .reviews .section-title {
+margin-left: 50px;
+}
+  
+  .reviews-grid {
+    gap: 25px;
+    margin-top: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+  .review-card {
+    min-width: 300px;
+    max-width: 350px;
+    padding: 25px;
+  }
+  
+  .review-avatar {
+    width: 55px;
+    height: 55px;
+    font-size: 1.3rem;
+  }
+  
+  .reviewer-info h4 {
+    font-size: 1rem;
+  }
+  
+  .review-content {
+font-size: 0.95rem;
+}
+
+/* Trust Badges - Desktop */
+.trust-badges {
+padding: 50px 30px;
+}
+
+.trust-badges h2 {
+font-size: 1.6rem;
+margin-bottom: 30px;
+}
+
+.badges-container {
+gap: 30px;
+}
+
+.badges-container img {
+height: 60px;
+}
+}
+
+@media (max-width: 768px) {
+    .brand-name {
+        font-size: 1.1rem;
+      }
+    }
+
+        .scroll-up {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #f09526;
+    border: none;
+    border-radius: 50%;
+    padding: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .scroll-up:hover {
+    background-color: #0cc5ea;
+    transform: translateY(-4px);
+  }
+
+  .scroll-up .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+/* === COMPREHENSIVE RESPONSIVE IMPROVEMENTS FOR TOURS PAGE === */
+
+/* Base responsive improvements */
+@media (max-width: 1200px) {
+  .tours-container {
+    gap: 30px;
+    padding: 0 15px;
+  }
+  
+  .tour-card {
+    max-width: 350px;
+  }
+  
+  .tour-card h3 {
+    font-size: 1.4rem;
+  }
+  
+  .tour-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tours-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .tour-card {
+    max-width: 100%;
+  }
+  
+  .tour-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .tour-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navigation improvements */
+  .nav-brand {
+    top: 12px;
+  }
+  
+  .brand-name {
+    font-size: 0.9rem;
+  }
+  
+  .nav-toggle {
+    top: 8px;
+    right: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .lang-dropdown {
+    top: 10px;
+    left: 10px;
+  }
+  
+  /* Tours section improvements */
+  .tours-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .tour-card {
+    padding: 20px;
+  }
+  
+  .tour-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .tour-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  
+  .tour-card img {
+    height: 120px;
+    margin-bottom: 15px;
+  }
+  
+  .tour-card .explore-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .tours-container {
+    gap: 15px;
+    padding: 0 5px;
+  }
+  
+  .tour-card {
+    padding: 15px;
+  }
+  
+  .tour-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  .tour-card p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  
+  .tour-card img {
+    height: 100px;
+    margin-bottom: 12px;
+  }
+  
+  .tour-card .explore-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Very small devices */
+  .tour-card {
+    padding: 12px;
+  }
+  
+  .tour-card h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .tour-card p {
+    font-size: 0.75rem;
+  }
+  
+  .tour-card img {
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .tour-card .explore-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .tour-card:hover {
+    transform: none;
+  }
+  
+  .tour-card .explore-btn:hover {
+    background-color: #172443;
+  }
+  
+  .nav-links a:hover {
+    color: white;
+  }
+  
+  .sidebar-menu a:hover {
+    color: white;
+  }
+}
+
+/* Landscape orientation fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+  .tours-container {
+    gap: 15px;
+  }
+  
+  .tour-card {
+    padding: 15px;
+  }
+  
+  .tour-card img {
+    height: 80px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .tour-card img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .tour-card .explore-btn {
+    display: none;
+  }
+  
+  .tour-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+
+    <nav>
+  <!-- Text Brand and/or Logo -->
+  <div class="nav-brand">
+    <img src="image/HopNTrip-logo.png" alt="Logo" class="brand-logo"> 
+    <div class="brand-name">HopNTrip</div>
+  </div>
+
+  <!-- Language Dropdown -->
+  <div class="lang-dropdown" id="langDropdown">
+    <span class="lang-icon">🌐</span>
+    <div class="lang-options">
+      <div data-lang="en">EN</div>
+      <div data-lang="bm">BM</div>
+      <div data-lang="cn">CN</div>
+    </div>
+  </div>
+
+  <!-- Hamburger Toggle (Mobile) -->
+  <div class="nav-toggle" id="hamburgerBtn" onclick="toggleMenu()">☰</div>
+
+  <!-- Center Nav Links (Desktop Only) -->
+  <div class="nav-center">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about-us.html">About</a>
+      <div class="nav-item dropdown">
+        <a href="services.html" class="dropdown-toggle">Services ▾</a>
+        <div class="dropdown-menu">
+          <a href="tours.html">Tour Packages</a>
+          <a href="flighbooking.html">Flight Booking</a>
+          <a href="hotels.html">Luxury Stay</a>
+          <a href="insurance.html">Insurance</a>
+          <a href="javascript:void(0)" class="chat-link" onclick="openChat()">24/7 Support</a>
+        </div>
+      </div>
+      <a href="contact-us.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="portfolio.html">Gallery</a>
+    </div>
+  </div>
+
+      <!-- Sidebar Menu (Mobile Only) -->
+    <div class="sidebar-menu" id="navSidebar">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about-us.html" onclick="toggleMenu()">About</a>
+      <div class="sidebar-dropdown">
+        <div class="sidebar-dropdown-header">
+          <a href="services.html" onclick="toggleMenu()">Services</a>
+          <button onclick="toggleSidebarDropdown()" class="dropdown-toggle-btn">▾</button>
+        </div>
+        <div class="sidebar-dropdown-menu" id="sidebarDropdown">
+          <a href="tours.html" onclick="toggleMenu()">Tour Packages</a>
+          <a href="flighbooking.html" onclick="toggleMenu()">Flight Booking</a>
+          <a href="hotels.html" onclick="toggleMenu()">Luxury Stay</a>
+          <a href="insurance.html" onclick="toggleMenu()">Insurance</a>
+          <a href="javascript:void(0)" onclick="openChat(); toggleMenu()">24/7 Support</a>
+        </div>
+      </div>
+      <a href="contact-us.html" onclick="toggleMenu()">Contact</a>
+      <a href="login.html" onclick="toggleMenu()">Login</a>
+      <a href="portfolio.html" onclick="toggleMenu()">Gallery</a>
+    </div>
+</nav>
+<script>
+  function toggleMenu() {
+    const sidebar = document.getElementById("navSidebar");
+    const hamburger = document.getElementById("hamburgerBtn");
+    sidebar.classList.toggle("active");
+    hamburger.textContent = sidebar.classList.contains("active") ? "⛌" : "☰";
+  }
+
+  function toggleSidebarDropdown() {
+    const dropdown = document.getElementById("sidebarDropdown");
+    dropdown.classList.toggle("active");
+  }
+  const langDropdown = document.getElementById("langDropdown");
+  langDropdown.addEventListener("click", function () {
+    this.classList.toggle("active");
+  });
+  document.querySelectorAll('.lang-options div').forEach(lang => {
+    lang.addEventListener('click', function () {
+      alert(`You clicked ${this.textContent}. This is a dummy for UI usability.`);
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!langDropdown.contains(e.target)) {
+      langDropdown.classList.remove('active');
+    }
+    const sidebar = document.getElementById("navSidebar");
+    const hamburger = document.getElementById("hamburgerBtn");
+    if (sidebar && hamburger && !sidebar.contains(e.target) && e.target !== hamburger && sidebar.classList.contains("active")) {
+      sidebar.classList.remove("active");
+      hamburger.textContent = "☰";
+    }
+  });
+  document.querySelectorAll('.sidebar-menu a').forEach(link => {
+    link.addEventListener('click', function() {
+      const sidebar = document.getElementById("navSidebar");
+      const hamburger = document.getElementById("hamburgerBtn");
+      sidebar.classList.remove("active");
+      if (hamburger) hamburger.textContent = "☰";
+    });
+  });
+</script>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Discover Sabah's Wonders</h1>
+        <p>Explore breathtaking landscapes, rich wildlife, and vibrant cultures with our expertly crafted tour packages</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Filter Toggle Button (Mobile) -->
+    <button class="filter-toggle-btn" onclick="toggleFilters()">
+        <span id="filterToggleText">🔍 Show Filters</span>
+    </button>
+    
+    <!-- Tour Filters -->
+    <aside class="tour-filters">
+        <div class="filter-group">
+            <h3>Destination</h3>
+            <div class="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="dest1" checked>
+                    <label for="dest1">Kota Kinabalu</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dest2" checked>
+                    <label for="dest2">Kundasang</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dest3" checked>
+                    <label for="dest3">Sandakan</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dest4" checked>
+                    <label for="dest4">Semporna</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dest5" checked>
+                    <label for="dest5">Tawau</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <h3>Duration</h3>
+            <div class="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="dur1" checked>
+                    <label for="dur1">1 Day</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dur2" checked>
+                    <label for="dur2">2-3 Days</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="dur3" checked>
+                    <label for="dur3">4+ Days</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <h3>Price Range</h3>
+            <div class="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="price1" checked>
+                    <label for="price1">RM 0 - RM 500</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price2" checked>
+                    <label for="price2">RM 500 - RM 1000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price3" checked>
+                    <label for="price3">RM 1000+</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <h3>Tour Type</h3>
+            <div class="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="type1" checked>
+                    <label for="type1">Adventure</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="type2" checked>
+                    <label for="type2">Wildlife</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="type3" checked>
+                    <label for="type3">Cultural</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="type4" checked>
+                    <label for="type4">Beach & Island</label>
+                </div>
+            </div>
+        </div>
+        
+        <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+    </aside>
+
+<!-- Tour Packages -->
+<main class="tours-container">
+    <div class="section-title">
+        <h2>Sabah Tour Packages</h2>
+        <p>Choose from our selection of handcrafted experiences showcasing the best of Sabah</p>
+    </div>
+
+    <div class="tours-grid">
+    <!-- Tour 1 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour1.jpg');"></div>
+        <div class="tour-content">
+            <div class="card-badge">BEST SELLER</div>
+            <h3>Mount Kinabalu Summit Climb</h3>
+            <div class="tour-location">
+                <span>📍</span> Kundasang, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>2D1N climb to the summit</li>
+                    <li>Includes permits and guide</li>
+                    <li>Breathtaking sunrise views</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 2 Days</div>
+                    <div class="tour-meta-item">⭐ 4.9 (128)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 1,490 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Mount Kinabalu Summit Climb')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour 2 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour2.png');"></div>
+        <div class="tour-content">
+            <div class="card-badge">WILDLIFE</div>
+            <h3>Sepilok Orangutan & River Safari</h3>
+            <div class="tour-location">
+                <span>📍</span> Sandakan, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>3D2N wildlife adventure</li>
+                    <li>See orangutans and pygmy elephants</li>
+                    <li>Night jungle walk included</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 3 Days</div>
+                    <div class="tour-meta-item">⭐ 4.8 (94)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 1,899 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Sepilok Orangutan & River Safari')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour 3 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour3.jpg');"></div>
+        <div class="tour-content">
+            <div class="card-badge">ISLAND HOPPING</div>
+            <h3>Tunku Abdul Rahman Marine Park</h3>
+            <div class="tour-location">
+                <span>📍</span> Kota Kinabalu, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>Full day island hopping</li>
+                    <li>Snorkeling at vibrant coral reefs</li>
+                    <li>Includes lunch and equipment</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 1 Day</div>
+                    <div class="tour-meta-item">⭐ 4.7 (156)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 350 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Tunku Abdul Rahman Marine Park')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour 4 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour4.jpg');"></div>
+        <div class="tour-content">
+            <div class="card-badge">CULTURAL</div>
+            <h3>Mari Mari Cultural Village</h3>
+            <div class="tour-location">
+                <span>📍</span> Kota Kinabalu, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>Explore indigenous cultures</li>
+                    <li>Traditional houses and performances</li>
+                    <li>Includes lunch and transfers</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 5 Hours</div>
+                    <div class="tour-meta-item">⭐ 4.6 (87)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 220 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Mari Mari Cultural Village')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour 5 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour5.jpg');"></div>
+        <div class="tour-content">
+            <div class="card-badge">ADVENTURE</div>
+            <h3>Kiulu White Water Rafting</h3>
+            <div class="tour-location">
+                <span>📍</span> Tamparuli, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>Grade I-II rapids (suitable for beginners)</li>
+                    <li>Scenic river surrounded by rainforest</li>
+                    <li>Includes safety equipment and lunch</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 1 Day</div>
+                    <div class="tour-meta-item">⭐ 4.5 (72)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 280 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Kiulu White Water Rafting')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour 6 -->
+    <div class="tour-card">
+        <div class="tour-image" style="background-image: url('image/tour6.jpg');"></div>
+        <div class="tour-content">
+            <div class="card-badge">NATURE</div>
+            <h3>Poring Hot Springs & Canopy Walk</h3>
+            <div class="tour-location">
+                <span>📍</span> Ranau, Sabah
+            </div>
+            <div class="tour-highlights">
+                <ul>
+                    <li>Relax in natural hot springs</li>
+                    <li>Walk among treetops on canopy walkway</li>
+                    <li>Visit to Desa Dairy Farm included</li>
+                </ul>
+            </div>
+            <div class="tour-details">
+                <div class="tour-meta">
+                    <div class="tour-meta-item">⏱️ 1 Day</div>
+                    <div class="tour-meta-item">⭐ 4.4 (63)</div>
+                </div>
+                <div class="price-info">
+                    <div class="price">RM 320 <span>/person</span></div>
+                    <button class="book-btn" onclick="bookTour('Poring Hot Springs & Canopy Walk')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+    <ul class="pagination-list">
+        <li class="pagination-item disabled" onclick="previousPage()">❮</li>
+        <li class="pagination-item active">1</li>
+        <li class="pagination-item">2</li>
+        <li class="pagination-item">3</li>
+        <li class="pagination-item">4</li>
+        <li class="pagination-item" onclick="nextPage()">❯</li>
+    </ul>
+</div>
+</main>
+</div>
+
+<!-- Reviews Section -->
+<section class="reviews">
+    <div class="reviews-container">
+        <div class="section-title">
+            <h2>What Our Travelers Say</h2>
+        </div>
+        <div class="reviews-grid">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">JS</div>
+                    <div class="reviewer-info">
+                        <h4>James Smith</h4>
+                        <div class="review-date">March 2023</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-content">
+                    <p>"The Kinabalu climb was challenging but absolutely worth it! Our guide was knowledgeable and kept us motivated. The sunrise at the summit was breathtaking."</p>
+                </div>
+            </div>
+            
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">ML</div>
+                    <div class="reviewer-info">
+                        <h4>Maria Lopez</h4>
+                        <div class="review-date">January 2023</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-content">
+                    <p>"We saw orangutans, proboscis monkeys, and even a pygmy elephant! The eco-lodge was comfortable and the guides were excellent at spotting wildlife."</p>
+                </div>
+            </div>
+            
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">AK</div>
+                    <div class="reviewer-info">
+                        <h4>Ahmed Khan</h4>
+                        <div class="review-date">December 2022</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★☆</div>
+                <div class="review-content">
+                    <p>"The island hopping tour was the highlight of our Sabah trip. The snorkeling spots were amazing with colorful fish and coral. Only wish we had more time!"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+<!-- trust badges section-->
+  <section class="trust-badges">
+  <h2>Trusted and Recognised</h2>
+  <div class="badges-container">
+    <img src="image/tripadvisor-badge.png" alt="TripAdvisor Travelers' Choice">
+    <img src="image/eco-tourism-award.png" alt="Eco Tourism Award">
+    <img src="image/unesco-logo.png" alt="UNESCO World Heritage">
+    <img src="image/msta.png" alt="Malaysia Sustainable Tourism Association">
+    <img src="image/iata.png" alt="IATA Accredited">
+  </div>
+  </section>
+
+<!--vertical footer section-->
+  <footer class="vertical-footer">
+  <br>
+  <p class="footer-title"> Copyright &copy; 2025 HopNTrip ✈ &#124; All Rights Reserved</p>
+  <br />
+
+  <footer class="vertical-footer">
+  <div class="footer-links">
+    <a href="javascript:void(0);" data-section="faqs">FAQs</a>
+    <a href="javascript:void(0);" data-section="terms">Terms and Conditions</a>
+    <a href="javascript:void(0);" data-section="packages">Travel Packages</a>
+    <a href="javascript:void(0);" data-section="booking">Booking and Payment Info</a>
+    <a href="javascript:void(0);" data-section="refund">Return and Refund Policy</a>
+    <a href="javascript:void(0);" data-section="safety">Safety and Tips</a>
+    <a href="javascript:void(0);" data-section="collab">Collaboration with Us</a>
+  </div>
+  <br /> 
+
+  <div class="social-icons">
+    <img src="image/youtube-icon.png" alt="YouTube" />
+    <img src="image/facebook-icon.png" alt="Facebook" />
+    <img src="image/instagram-icon.png" alt="Instagram" />
+    <img src="image/whatsapp-icon.png" alt="Whatsapp" />
+    <img src="image/tiktok-icon.png" alt="Tiktok" />
+  </div>
+  <br />
+  
+  <p class="footer-chat">
+    <span>Planning your trip?</span>
+    <a href="javascript:void(0)" class="chat-link" onclick="openChat()">Get Help Now</a>
+  </p>
+
+  <div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <span>Help Chat</span>
+    <button onclick="closeChat()">✖</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <p id="chatGreeting"><strong>Agent:</strong> Need a hand with your trip? 🤗</p>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatMessage" placeholder="Type your message..."/>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+</footer>
+
+<div id="footerModal">
+  <div class="content">
+    <span class="close">&times;</span>
+    <h3 id="footerModalTitle">Information</h3>
+    <div id="footerModalBody"></div>
+  </div>
+</div>
+
+<button class="scroll-up" onclick="scrollToTop()">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+</footer>
+  
+  <script>
+  const footerModalData = {
+
+  faqs:`
+<h3>🌍 General</h3>
+<ol>
+  <li><p><strong>Q: When is the best time to visit Sabah?</strong><br>A: March to October is the driest period—ideal for outdoor activities. However, cultural tours and wildlife viewing are available year-round.</p></li>
+  <li><p><strong>Q: Is the Mount Kinabalu climbing permit included?</strong><br>A: Yes, all summit packages cover permits, park fees, mountain guides, and basic mountain lodge accommodations.</p></li>
+  <li><p><strong>Q: Are meals included in the travel packages?</strong><br>A: Most packages include breakfast and selected meals. You can check the specific inclusions in each itinerary.</p></li>
+  <li><p><strong>Q: Do I need travel insurance?</strong><br>A: While not compulsory, we highly recommend travel insurance that covers medical, cancellations, and outdoor adventures.</p></li>
+  <li><p><strong>Q: Can I customize my itinerary?</strong><br>A: Definitely! Our team is happy to create a trip that fits your interests, pace, and travel goals.</p></li>
+</ol>
+
+<h3>👨‍👩‍👧‍👦 Families</h3>
+<ol start="6">
+  <li><p><strong>Q: Are the tours kid-friendly?</strong><br>A: Yes! We offer family-friendly activities like wildlife parks, cultural villages, and gentle hikes. Age suitability is noted in each package.</p></li>
+  <li><p><strong>Q: Do accommodations offer family facilities?</strong><br>A: Many of our partner resorts and lodges provide family rooms, pools, kids' menus, and play areas. Just let us know your needs.</p></li>
+  <li><p><strong>Q: Are car seats or child carriers available?</strong><br>A: Upon request, we can provide car seats and recommend operators with child-friendly equipment for tours.</p></li>
+  <li><p><strong>Q: What if my child has special dietary needs?</strong><br>A: Just inform us in advance and we'll coordinate with hotels and meal providers to accommodate dietary restrictions.</p></li>
+</ol>
+
+<h3>⛰️ Adventure Seekers</h3>
+<ol start="10">
+  <li><p><strong>Q: Do I need prior experience for activities like rafting or climbing?</strong><br>A: No prior experience is needed for most activities. Our guides provide safety briefings and basic training before each adventure. However, a moderate level of fitness is recommended.</p></li>
+  <li><p><strong>Q: What gear should I bring for trekking or jungle expeditions?</strong><br>A: Lightweight hiking boots, long-sleeved clothing, insect repellent, a waterproof bag cover, and a headlamp are highly recommended. We'll send you a full packing checklist before your trip.</p></li>
+  <li><p><strong>Q: Is equipment like helmets and life jackets provided?</strong><br>A: Yes, all necessary safety equipment is included in guided activities like rafting, caving, or zip-lining.</p></li>
+  <li><p><strong>Q: Can I book multi-day expeditions or survival trips?</strong><br>A: Absolutely! We offer multi-day jungle survival experiences, wildlife trekking, and remote expeditions to places like Maliau Basin and Danum Valley.</p></li>
+  <li><p><strong>Q: Are the adventure tours safe?</strong><br>A: Your safety is our priority. All tours are led by licensed, trained guides and follow strict safety protocols. Weather and terrain are assessed before every trip.</p></li>
+</ol>
+
+<h3>💑 Couples & Romantic</h3>
+<ol start="16">
+  <li><p><strong>Q: What's a good honeymoon or anniversary idea?</strong><br>A: Private island picnics, sunset cruises, and glass cabin stays in Kundasang are just a few of our romantic bestsellers!</p></li>
+  <li><p><strong>Q: Can we request special arrangements (flowers, surprises)?</strong><br>A: Yes! We love helping with surprises—just let us know what you have in mind and we'll handle the rest.</p></li>
+  <li><p><strong>Q: Are spa or couple massage options available?</strong><br>A: Definitely. We can include couple spa sessions or thermal spring visits in your itinerary for added relaxation.</p></li>
+</ol>
+
+<h3>🧍 Solo Travelers</h3>
+<ol start="13">
+  <li><p><strong>Q: Is Sabah safe for solo travelers?</strong><br>A: Yes, Sabah is generally safe, and we partner with trusted operators. You'll also have 24/7 support from our team if needed.</p></li>
+  <li><p><strong>Q: Will I meet other travelers?</strong><br>A: Absolutely! We offer small-group tours and community experiences where you can connect with fellow adventurers.</p></li>
+  <li><p><strong>Q: Can I join just part of a group itinerary?</strong><br>A: Yes, flexible options are available so you can join a day trip or two while enjoying solo time as well.</p></li>
+</ol>
+`,
+
+  terms:`
+<ol>
+  <li><p><strong>Booking Confirmation:</strong> All bookings are subject to availability and are confirmed only upon receipt of full payment or a deposit.</p></li>
+  <li><p><strong>Pricing:</strong> All prices are quoted in Malaysian Ringgit (MYR) and are subject to change in the event of currency fluctuations, government taxes, or supplier adjustments.</p></li>
+  <li><p><strong>Deposit & Payment:</strong> A non-refundable deposit of 30% is required to secure your booking. The remaining balance must be paid in full at least 30 days before departure.</p></li>
+  <li><p><strong>Booking Changes:</strong> Requests for changes must be submitted in writing and are subject to approval and availability. No changes can be made within 7 days of the scheduled trip.</p></li>
+  <li><p><strong>Cancellation & Refunds:</strong> Cancellations are subject to fees based on notice period. Where eligible, refunds will be processed within 14 business days, minus any applicable charges.</p></li>
+  <li><p><strong>Itinerary Adjustments:</strong> HopNTrip reserves the right to cancel or modify itineraries due to weather conditions, safety concerns, or other unforeseen circumstances.</p></li>
+  <li><p><strong>Health & Insurance:</strong> Participants must ensure they are physically fit for the selected activities and must have valid travel insurance that covers adventure and outdoor experiences.</p></li>
+  <li><p><strong>Liability Disclaimer:</strong> HopNTrip is not liable for any loss, injury, or damage incurred during the trip, except as required under applicable laws.</p></li>
+  <li><p><strong>Privacy Policy:</strong> All personal information provided during booking will be kept confidential and used solely for trip coordination, communication, and safety purposes. We do not sell or share your data with third parties without consent, except as required by law.</p></li>
+  <li><p><strong>Travel Documents:</strong> It is the responsibility of each participant to ensure they have valid passports, visas (if applicable), and any other travel documents required by Malaysian law or their home country. HopNTrip will not be held responsible for denied entry due to incomplete documentation.</p></li>
+  <li><p><strong>Child Policy:</strong> Children under 12 must be accompanied by a parent or legal guardian. Some tours may have minimum age requirements for safety reasons. Child rates may apply for selected packages and will be clearly stated in the trip details.</p></li>
+  <li><p><strong>Force Majeure:</strong> HopNTrip shall not be held liable for any failure or delay in performance of its obligations due to events beyond its reasonable control, including but not limited to natural disasters, pandemics, strikes, war, political unrest, government regulations, or acts of God. In such cases, affected bookings may be postponed or adjusted in accordance with the situation. Refunds, if applicable, will be assessed on a case-by-case basis.</p></li>
+</ol>
+    `,
+
+  packages: `
+<ol>
+  <li><p><strong>4D3N Sandakan Wildlife Loop - from RM1,899</strong><br>Discover Borneo's wildlife gems — orangutans, sun bears, and river cruises along Kinabatangan. Includes entrance fees, eco-lodge accommodation, guided tours, transfers, and daily breakfast.</p></li>
+  <li><p><strong>3D2N Mount Kinabalu Climb - from RM1,490</strong><br>Conquer Southeast Asia's highest peak with an overnight stay at Panalaban Base Camp. Includes park entrance, climbing permit, certified mountain guide, accommodation, meals, and return transfers.</p></li>
+  <li><p><strong>2D1N Kota Kinabalu & Islands - from RM1,099</strong><br>Explore the city, savor local cuisine, and island-hop to Tunku Abdul Rahman Marine Park. Package includes hotel stay, island transfers, snorkeling gear, and city tour with a licensed guide.</p></li>
+</ol>
+<p><strong>All packages include:</strong> Accommodation, permits, transportation, professional guide, and selected meals unless otherwise stated.</p>
+<p><strong>Optional Add-ons:</strong> Airport pickup, private guide upgrade, cultural night shows, or extra night stays (charges apply).</p>
+<p><strong>Customize Your Trip:</strong> All packages can be tailored to your preferences. Pricing will vary depending on your chosen destinations, vehicle types, group size, and activities.</p>
+<p>Ready to plan your trip? <a href="contact-us.html"><strong>Contact us</strong></a> and let's design your ideal Sabah getaway!</p>
+
+    `,
+
+  booking: `
+<p>At HopNTrip, we aim to make your travel planning seamless and secure. Our 💳 booking process is designed to offer flexibility, transparency, and convenience from start to finish—ensuring your trip begins stress-free and with full peace of mind.</p>
+<ol>
+  <li><p><strong>Secure Online Payments:</strong> All transactions are processed through trusted gateways including Stripe and iPay88, which support a wide range of payment options such as Visa, Mastercard, FPX online banking, and leading e-wallets (Touch 'n Go, GrabPay, Boost, etc.). Your financial data is encrypted and protected using industry-standard security protocols.</p></li>
+  <li><p><strong>Deposit & Balance Policy:</strong> To confirm your reservation, a non-refundable deposit of 30% of the total package cost is required at the time of booking. The remaining balance must be settled no later than 30 days prior to the trip departure date. Failure to complete payment within this period may result in the cancellation of your booking without refund of the deposit.</p></li>
+  <li><p><strong>Instant Booking Confirmation:</strong> Once payment is received, you will receive a confirmation email with your e-voucher, official payment receipt, and a downloadable PDF copy of your itinerary. All documentation is sent directly to the email provided during booking. Please ensure your contact details are correct for timely delivery.</p></li>
+  <li><p><strong>Last-Minute Bookings:</strong> For trips booked within 30 days of the departure date, full payment is required upfront to secure your spot. These bookings are subject to availability and may have limited customization options depending on the package and time frame.</p></li>
+  <li><p><strong>Support for Manual Booking:</strong> Prefer a more personal approach? Our dedicated travel consultants are happy to guide you through the manual booking process via WhatsApp or email. This option is ideal for complex itineraries, group arrangements, or custom tours requiring detailed planning.</p></li>
+</ol>
+<p><strong>Custom Requests & Invoices:</strong> If you have special requirements, need additional services, or require a formal invoice for company claims or group billing, our team will be happy to accommodate. We're here to ensure your booking experience is smooth, flexible, and fully tailored to your preferences.</p>
+<p>Have questions before booking? <a href="contact-us.html"><strong>Reach out to us</strong></a> and we'll be glad to assist you every step of the way.</p>
+    `,
+
+  refund:`
+<p>At HopNTrip, we understand that travel plans may need to change unexpectedly. Our 🔁 return and refund policy is designed to be transparent and considerate, while also accounting for the advance arrangements and commitments made on your behalf. We aim to offer flexibility where possible, without compromising on the quality and readiness of our service delivery.</p>
+<ol>
+  <li><p><strong>30 or more days before departure:</strong> Customers are entitled to a full refund of all payments made, excluding any non-refundable third-party fees (e.g. permits or special accommodation deposits where applicable).</p></li>
+  <li><p><strong>15 to 29 days before departure:</strong> A 50% refund of the total tour package price will be issued. This accounts for partial planning costs, logistics, and vendor arrangements already secured.</p></li>
+  <li><p><strong>Less than 15 days before departure:</strong> No refunds will be issued due to the proximity of the travel date and confirmed services. However, you may transfer your booking to another person at no additional charge. Please inform us at least 3 working days in advance for name changes and documentation updates.</p></li>
+  <li><p><strong>Tour operator cancellation (e.g., weather disruptions, safety concerns, or unforeseen circumstances):</strong> In such events, HopNTrip will offer a full refund or a complimentary rescheduling option to an available future date, depending on your preference.</p></li>
+</ol>
+  <p>All approved refunds will be processed within <strong>14 business days</strong> to the original payment method. Please ensure your banking details are accurate to avoid delays.</p>
+  <p>To initiate a refund request or arrange for a name transfer, kindly email us at <a href="mailto:support@hopntrip.my">support@hopntrip.my</a> with your booking reference and reason for the request. Our team will get back to you promptly with the next steps.</p>
+    `,
+
+  safety:  `
+<p>Your 🛡️ safety and comfort are our top priorities. Whether you're exploring Sabah's mountains, islands, or rainforests, following these essential travel tips will help ensure a smooth and enjoyable journey:</p>
+<ol>
+<li><p><strong>Hydration is key:</strong> Always carry at least 1-2 liters of drinking water per person during outdoor excursions, especially in humid or high-altitude areas.</p></li>
+<li><p><strong>Protect yourself and the environment:</strong> Use reef-safe sunscreen and insect repellent to avoid harming marine life and to prevent insect bites during jungle treks or riverside activities.</p></li>
+<li><p><strong>Register with authorities:</strong> Before starting and after completing any hike, climb, or park-based activity, register at the park office for tracking and emergency response purposes.</p></li>
+<li><p><strong>Be first-aid ready:</strong> Pack a small, personal first-aid kit with plasters, antiseptic wipes, painkillers, and motion sickness tablets, especially for long journeys or boat rides.</p></li>
+<li><p><strong>Dress appropriately:</strong> Wear breathable clothing and closed-toe hiking shoes with good grip for jungle paths, rocky trails, or wet conditions. Sandals are not recommended for trekking.</p></li>
+<li><p><strong>Prepare for limited banking access:</strong> Carry cash in small denominations, as many rural or island-based vendors operate on a cash-only basis and ATMs may be scarce.</p></li>
+<li><p><strong>Follow guide instructions:</strong> Your local guide is trained for safety and situational awareness. Always follow their advice, especially during wildlife sightings, boat transfers, or challenging terrain.</p></li>
+<li><p><strong>Stay connected and informed:</strong> Save local emergency contact numbers in your mobile device, and if you're traveling solo, inform someone of your itinerary before heading out.</p></li>
+</ol>
+<p>For further safety support or emergency assistance, you may contact HopNTrip anytime during your trip via our <a href="contact-us.html"><strong>support team</strong></a>.</p>
+    `,
+
+  collab: `
+<p>At HopNTrip, we believe in building strong, purposeful partnerships that promote sustainable tourism, elevate authentic local experiences, and contribute meaningfully to communities across Sabah. Whether you're an individual with a passion for travel or a business aligned with our values, we're excited to explore ways we can work together.</p>
+<ol>
+<li><p><strong>Travel Bloggers, Influencers & Content Creators:</strong> Let's collaborate on story-driven campaigns, destination features, or social takeovers that inspire conscious exploration.</p></li>
+<li><p><strong>Eco-Lodges, Homestays & Experience Providers:</strong> Showcase your unique offerings by joining our curated list of local stays and immersive activities across Sabah.</p></li>
+<li><p><strong>Corporate Teams & CSR Planners:</strong> Organize impactful team-building retreats, eco-volunteering, or community service travel experiences that align with your brand values.</p></li>
+<li><p><strong>Educational Institutions & Student Groups:</strong> Partner with us for study tours, cultural exchanges, or customized learning journeys focused on nature, heritage, and sustainability.</p></li>
+</ol>
+<p>We welcome collaboration proposals of all kinds — from affiliate programs and joint marketing campaigns to media trips and local co-hosted events.</p>
+<p>📧 Email us at <a href="mailto:hello@hopntrip.my">hello@hopntrip.my</a><br>📱 WhatsApp us at <a href="https://wa.me/60168882288" target="_blank">+60 16-888 2288</a></p>
+  `
+};
+
+const footerTitles = {
+  faqs:"FAQs",
+  terms:"Terms and Conditions",
+  packages:"Travel Packages",
+  booking:"Booking and Payment Info",
+  refund:"Return and Refund Policy",
+  safety:"Safety and Tips",
+  collab:"Collaboration with Us"
+};
+
+function openFooterModal(section){
+  document.getElementById("footerModalTitle").textContent =
+      footerTitles[section] || "Information";
+  document.getElementById("footerModalBody").innerHTML =
+      footerModalData[section] || "Content not found.";
+  document.getElementById("footerModal").style.display = "flex";
+}
+function closeFooterModal(){
+  document.getElementById("footerModal").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  document.querySelectorAll(".footer-links a").forEach(a=>{
+    a.addEventListener("click", e=>{
+      e.preventDefault();              
+      openFooterModal(a.dataset.section);
+    });
+  });
+
+  document.querySelector("#footerModal .close").addEventListener("click", closeFooterModal);
+  window.addEventListener("click", e=>{
+    if(e.target.id==="footerModal") closeFooterModal();
+  });
+});
+
+  function openChat() {
+    document.getElementById("chatBox").style.display = "block";
+  }
+
+  function closeChat() {
+    document.getElementById("chatBox").style.display = "none";
+  }
+
+  function sendMessage() {
+  const input = document.getElementById("chatMessage");
+  const message = input.value.trim();
+  if (message !== "") {
+    const chatBody = document.getElementById("chatBody");
+
+    const userMsg = document.createElement("p");
+    userMsg.innerHTML = `<strong>You:</strong> ${message}`;
+    chatBody.appendChild(userMsg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    input.value = "";
+
+    setTimeout(() => {
+      const reply = document.createElement("p");
+      reply.innerHTML = `<strong>Agent:</strong> Thank you! We will get back to you shortly.`;
+      chatBody.appendChild(reply);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+  }
+}
+
+  function applyFilters() {
+    alert("Filters applied! This is a dummy function for UI demonstration.");
+  }
+
+  function previousPage() {
+    alert("Previous page clicked! This is a dummy function for UI demonstration.");
+  }
+
+  function nextPage() {
+    alert("Next page clicked! This is a dummy function for UI demonstration.");
+  }
+
+  function bookTour(tourName) {
+    alert(`Booking request for "${tourName}" received! This is a dummy function for UI demonstration.`);
+  }
+
+  // Filter toggle function for mobile responsive design
+  function toggleFilters() {
+    const filters = document.querySelector('.tour-filters');
+    const toggleBtn = document.querySelector('.filter-toggle-btn');
+    const toggleText = document.getElementById('filterToggleText');
+    
+    filters.classList.toggle('active');
+    toggleBtn.classList.toggle('active');
+    
+    if (filters.classList.contains('active')) {
+      toggleText.textContent = '✖️ Hide Filters';
+    } else {
+      toggleText.textContent = '🔍 Show Filters';
+    }
+  }
+
+  document.querySelectorAll('.social-icons img').forEach(function (icon) {
+  icon.addEventListener('click', function () {
+    alert(icon.alt + " icon clicked! (Dummy link for now)");
+  });
+});
+
+   function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  </script>
+</body>
+</html>

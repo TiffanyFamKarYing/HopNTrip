@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopNTrip | Sabah Tourism Agency</title>
+
+<style>
+:root {
+    --primary: #172443; /* Navy blue */
+    --accent: #00c6ff;
+    --light-text: #666;
+    --dark-text: #333;
+    --light-bg: #f9f9f9;
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* === MAIN NAVIGATION === */
+nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 999;
+    }
+
+    /* === BRAND NAME & LOGO === */
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      z-index: 1002;
+    }
+
+    .brand-logo {
+      height: 35px;
+      margin-right: 10px;
+      display: none; /* hidden by default, only shown on desktop */
+    }
+
+    .brand-name {
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* === DESKTOP POSITIONING === */
+    @media (min-width: 820px) {
+      .nav-brand {
+        position: absolute;
+        left: 20px;
+        top: 13px;
+      }
+
+      .brand-logo {
+        display: block;
+      }
+
+      .brand-name {
+        display: none;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+
+      .nav-center {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nav-toggle,
+      .sidebar-menu {
+        display: none;
+      }
+    }
+
+    /* === MOBILE POSITIONING === */
+    @media (max-width: 819px) {
+      .nav-brand {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .brand-logo {
+        display: none;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: 14px;
+        left: 15px;
+      }
+
+      .nav-toggle {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .nav-center {
+        display: none;
+      }
+    }
+
+    /* === NAV LINKS === */
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: white;
+      padding: 20px 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #fdff9d;
+    }
+
+    /* === SIDEBAR MENU === */
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #172443;
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar-menu.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px solid #2F4F4F;
+      padding-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .sidebar-menu a:hover {
+      color: #fdff9d;
+    }
+
+    /* Sidebar Dropdown Styles */
+    .sidebar-dropdown {
+      position: relative;
+    }
+
+    .sidebar-dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sidebar-dropdown-header a {
+      color: white;
+      font-size: 1.0rem;
+      transition: color 0.3s;
+      flex: 1;
+    }
+
+    .sidebar-dropdown-header a:hover {
+      color: #fdff9d;
+    }
+
+    .dropdown-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      transition: color 0.3s;
+    }
+
+    .dropdown-toggle-btn:hover {
+      color: #fdff9d;
+    }
+
+    .sidebar-dropdown-menu {
+      display: none;
+      background-color: #172443;
+      margin-top: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .sidebar-dropdown-menu.active {
+      display: block;
+    }
+
+    .sidebar-dropdown-menu a {
+      font-size: 1rem;
+      padding: 12px 15px;
+      border-bottom: 1px solid #2F4F4F;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    .sidebar-dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-dropdown-menu a:hover {
+      color: #fdff9d;
+    }
+
+    /* Dropdown container */
+    .nav-item.dropdown {
+      position: relative;
+    }
+
+    /* Toggle link */
+    .dropdown-toggle {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      color: #172443;
+      border-radius: 5px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      flex-direction: column;
+      width: 220px; 
+      height: 220px; 
+      top: 42px;
+      left: 0;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #172443;
+      font-size: 14px;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #172443;
+      color: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    /* Show dropdown on hover for desktop */
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: flex;
+    }
+
+    /* Responsive fix: hide dropdown hover on small screen */
+    @media (max-width: 819px) {
+      .dropdown-menu {
+        position: static;
+        display: none;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .dropdown-menu a {
+        padding-left: 30px;
+        font-size: 1rem;
+      }
+
+      .nav-item.dropdown.active .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .sidebar-menu.active #hamburgerBtn {
+      color: white;
+    }
+
+    /* === LANGUAGE DROPDOWN === */
+    .lang-dropdown {
+      cursor: pointer;
+    }
+
+    .lang-icon {
+      font-size: 1.5rem;
+      color: white;
+      margin-top: -2px;
+      display: inline-block;
+    }
+
+    .lang-options {
+      display: none;
+      position: absolute;
+      top: 30px;
+      background-color: white;
+      color: #172443;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .lang-options div {
+      padding: 8px 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .lang-options div:hover {
+      background-color: #f0f0f0;
+    }
+
+    .lang-dropdown.active .lang-options {
+      display: block;
+    }
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.152)), url('image/flight_bg.jpg') center/cover;
+    padding: 130px 40px;
+    color: white;
+    text-align: center;
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 20px;  /* Adjust padding for mobile */
+    }
+    .hero h1 {
+        font-size: 28px;  /* Reduce font size */
+    }
+    .hero p {
+        font-size: 16px;  /* Adjust paragraph font size */
+    }
+    .hero-content {
+        max-width: 100%;  /* Allow hero content to take full width on small screens */
+    }
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 40px;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 17px;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Flight Search */
+.flight-search {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: var(--card-shadow);
+  max-width: 1000px;
+  margin: -70px auto 0;
+  position: relative;
+  z-index: 10;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.swap-btn {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.swap-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.search-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin: 20px auto 0;
+  width: 200px;
+}
+
+.search-btn:hover {
+  background: #0e1a33;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(23, 36, 67, 0.3);
+}
+
+/* Main Content */
+.container {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  margin-top: 6px;
+  position: relative;
+  display: inline-block;
+  color: var(--primary);
+}
+
+.section-title h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--accent);
+}
+
+.section-title p {
+  color: var(--light-text);
+  max-width: 700px;
+  margin: 20px auto 0;
+  font-size: 1.1rem;
+}
+
+/* Filter Toggle Button */
+.filter-toggle-btn {
+  display: none;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-toggle-btn:hover {
+  background: #0e1a33;
+}
+
+.filter-toggle-btn.active {
+  background: #0e1a33;
+}
+
+/* Apply Filters Button */
+.apply-filters-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.85rem;
+  margin-top: 100px;
+  margin-right: 100px;
+  display: inline-block;
+  width: fit-content;
+  max-height: 40px;
+}
+
+.apply-filters-btn:hover {
+  background: #e67e22;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+}
+
+.apply-filters-btn:active {
+  transform: translateY(0);
+}
+
+/* Flight Filters */
+.filters {
+  background: var(--light-bg);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group h3 {
+  margin-bottom: 15px;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-option input {
+  width: 18px;
+  height: 18px;
+}
+
+.filter-option label {
+  cursor: pointer;
+}
+
+/* Flight Deals */
+.deals-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.deal-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s;
+  border: 1px solid #eee;
+  padding: 25px;
+}
+
+.deal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.card-body h3 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.flight-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.flight-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.flight-detail i {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.flight-detail .time {
+  font-weight: 600;
+  font-size: 1.0rem;
+  
+}
+
+.flight-detail .location {
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+.price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.price span {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--light-text);
+}
+
+.book-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.book-btn:hover {
+  background: #0e1a33;
+}
+
+.airline-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.airline-logo {
+  width: 40px;
+  height: 40px;
+  background: var(--light-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.airline-name {
+  font-weight: 500;
+}
+
+ /* ======== TRUST BADGES ======== */
+.trust-badges {
+  background-color: #ffffff;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.trust-badges h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.badges-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.badges-container img {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+}
+
+.vertical-footer {
+      background-color: #172443;
+      color: #ffffff;
+      text-align: center;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .vertical-footer .footer-title {
+      font-size: 1rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    .vertical-footer .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .vertical-footer .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .footer-links a:hover {
+      color: #fdff9d;
+    }
+
+    #footerModal{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.6);z-index:999;
+      justify-content:center;align-items:center
+    }
+
+    #footerModal .content{
+      background:#fff;
+      color:#000;
+      width:92%;
+      max-width:600px;
+      padding:24px 28px 32px;
+      border-radius:12px;
+      position:relative;
+      animation:slideIn .35s ease;
+      overflow-y:auto;
+      max-height:85vh;
+      text-align: justify;
+      text-align: left;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    @keyframes slideIn{
+      from{transform:translateY(-40px);opacity:0}
+      to
+      {transform:translateY(0);opacity:1}
+    }
+    
+    #footerModal .close{
+      font-size: 26px;
+      font-weight: bold;
+      top: 14px;
+      right: 20px;
+      cursor: pointer;
+      color: #333;
+      background: none;
+      border: none;
+      position: absolute;
+      z-index: 1002;
+      transition: color 0.2s ease;
+    }
+
+    #footerModal .close:hover {
+      color: #c00;
+    }
+
+    #footerModalTitle {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody h3 {
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-size: 22px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody p {
+      margin-bottom: 14px;
+      line-height: 1.6;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    #footerModalBody ol li {
+      margin-bottom: 12px;
+      text-align: justify;
+      line-height: 1.6;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol li p {
+      margin-bottom: 8px;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody strong {
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody a {
+      color: #ffb347;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #footerModalBody a:hover {
+      color: #ffa726;
+      text-decoration: underline;
+    }
+
+    #footerModal ul{
+      padding-left:20px
+    }
+
+    .vertical-footer .social-icons {
+      display: flex;
+      flex-direction: row; 
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .vertical-footer .social-icons img {
+      width: 25px; 
+      height: 25px; 
+      object-fit: contain;
+      transition: transform 0.3s ease; 
+    }
+
+    .vertical-footer .social-icons img:hover {
+      transform: scale(1.1);
+    }
+
+    .vertical-footer .footer-chat {
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .chat-link {
+      color: #ff0000;
+      text-decoration: underline;
+    }
+    
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #f44336;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-body {
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 14px;
+      color: #333;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      line-height: 1.4;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      font-size: 14px;
+      border-right: 1px solid #ccc;
+    }
+
+    .chat-input button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .flight-search {
+        padding: 20px;
+    }
+            
+    .filter-toggle-btn {
+        display: block;
+        max-width: 400px;
+    }
+    
+    .filters {
+        display: none;
+    }
+    
+    .filters.active {
+        display: flex;
+    }
+    
+    .apply-filters-btn {
+        display: inline-block;
+        width: fit-content;
+        padding: 5px 16px;
+        font-size: 0.9rem;
+    }
+    
+    /* Trust Badges - Keep in one row */
+    .trust-badges {
+        padding: 35px 20px;
+    }
+    
+    .trust-badges h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .badges-container {
+        gap: 15px;
+    }
+    
+    .badges-container img {
+        height: 30px;
+    }
+    }
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 80px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .section-title{
+      margin-top: -20px;
+      margin-bottom: 10px;
+    }
+              
+    .section-title h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .section-title p {
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+    }
+
+        
+    .filter-toggle-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        max-width: 300px;
+    }
+    
+    .filters {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .filter-group {
+        min-width: auto;
+    }
+    
+    .filter-group h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .filter-option {
+        gap: 8px;
+    }
+    
+    .filter-option input {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .filter-option label {
+        font-size: 0.9rem;
+    }
+    
+    .apply-filters-btn {
+        display: inline-block;
+        width: fit-content;
+        padding: 4px 12px;
+        font-size: 0.8rem;
+    }
+        
+    .deals-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .flight-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* Trust Badges - Mobile */
+    .trust-badges {
+        padding: 30px 15px;
+    }
+    
+    .trust-badges h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .badges-container {
+        gap: 10px;
+    }
+    
+    .badges-container img {
+        height: 25px;
+    }
+}
+
+/* Tablet & Mobile: Compact search form in one row */
+@media (max-width: 1023px) {
+  .search-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+    padding: 0 4px;
+    align-items: flex-end;
+  }
+  .search-form .form-group {
+    min-width: 120px;
+    max-width: 160px;
+    flex: 0 0 auto;
+    margin-bottom: 0;
+  }
+  .search-form label {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+  .search-form input,
+  .search-form select {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    min-width: 0;
+  }
+  .swap-btn {
+    width: 28px;
+    height: 28px;
+    top: 28px;
+    right: 4px;
+    font-size: 1rem;
+  }
+  
+  /* Tablet: Two cards per row */
+  .deals-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .deal-card {
+    padding: 20px;
+  }
+  
+  .deal-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+  }
+  
+  .flight-info {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+  }
+  
+  .price {
+    font-size: 1.6rem;
+  }
+  
+  .book-btn {
+    padding: 9px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop and Large Screens (901px and above) */
+@media (min-width: 901px) {
+  /* Trust Badges - Desktop */
+  .trust-badges {
+    padding: 50px 30px;
+  }
+  
+  .trust-badges h2 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .badges-container {
+    gap: 30px;
+  }
+  
+  .badges-container img {
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-form {
+    gap: 4px;
+    padding: 0 2px;
+  }
+  .search-form .form-group {
+    min-width: 90px;
+    max-width: 120px;
+  }
+  .search-form label {
+    font-size: 0.8rem;
+  }
+  .search-form input,
+  .search-form select {
+    padding: 4px 6px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+  }
+  .swap-btn {
+    width: 22px;
+    height: 22px;
+    top: 22px;
+    right: 2px;
+    font-size: 0.9rem;
+  }
+        
+  /* Mobile: Even smaller search and book buttons */
+  .search-btn {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      padding: 12px 0;
+  }
+
+  .book-btn {
+      padding: 4px 8px;
+      font-size: 0.7rem;
+  }
+
+  .search-btn {
+      font-size: 0.95rem;
+      padding: 10px 0;
+  }
+        
+  /* Mobile: Two cards per row */
+  .deals-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+  }
+
+  .deal-card {
+    padding: 15px;
+  }
+  
+  .deal-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .flight-info {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .flight-detail .time {
+    font-size: 0.9rem;
+  }
+  
+  .flight-detail .location {
+    font-size: 0.8rem;
+  }
+  
+  .price {
+    font-size: 1.4rem;
+  }
+  
+  .book-btn {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+  }
+  
+  .airline-logo {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .card-badge {
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+    .brand-name {
+        font-size: 1.1rem;
+      }
+    }
+
+        .scroll-up {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #f09526;
+    border: none;
+    border-radius: 50%;
+    padding: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .scroll-up:hover {
+    background-color: #0cc5ea;
+    transform: translateY(-4px);
+  }
+
+  .scroll-up .icon {
+    width: 24px;
+    height: 24px;
+  }
+</style>
+</head>
+<body>
+
+    <nav>
+  <!-- Text Brand and/or Logo -->
+  <div class="nav-brand">
+    <img src="image/HopNTrip-logo.png" alt="Logo" class="brand-logo"> 
+    <div class="brand-name">HopNTrip</div>
+        </div>
+
+  <!-- Language Dropdown -->
+    <div class="lang-dropdown" id="langDropdown">
+      <span class="lang-icon">🌐</span>
+      <div class="lang-options">
+        <div data-lang="en">EN</div>
+        <div data-lang="bm">BM</div>
+        <div data-lang="cn">CN</div>
+      </div>
+    </div>
+
+  <!-- Hamburger Toggle (Mobile) -->
+  <div class="nav-toggle" id="hamburgerBtn" onclick="toggleMenu()">☰</div>
+
+  <!-- Center Nav Links (Desktop Only) -->
+  <div class="nav-center">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about-us.html">About</a>
+      <div class="nav-item dropdown">
+        <a href="services.html" class="dropdown-toggle">Services ▾</a>
+        <div class="dropdown-menu">
+          <a href="tours.html">Tour Packages</a>
+          <a href="flighbooking.html">Flight Booking</a>
+          <a href="hotels.html">Luxury Stay</a>
+          <a href="insurance.html">Insurance</a>
+          <a href="javascript:void(0)" class="chat-link" onclick="openChat()">24/7 Support</a>
+        </div>
+      </div>
+      <a href="contact-us.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="portfolio.html">Gallery</a>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu (Mobile Only) -->
+  <div class="sidebar-menu" id="navSidebar">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="about-us.html" onclick="toggleMenu()">About</a>
+    <div class="sidebar-dropdown">
+      <div class="sidebar-dropdown-header">
+        <a href="services.html" onclick="toggleMenu()">Services</a>
+        <button onclick="toggleSidebarDropdown()" class="dropdown-toggle-btn">▾</button>
+      </div>
+      <div class="sidebar-dropdown-menu" id="sidebarDropdown">
+        <a href="tours.html" onclick="toggleMenu()">Tour Packages</a>
+        <a href="flighbooking.html" onclick="toggleMenu()">Flight Booking</a>
+        <a href="hotels.html" onclick="toggleMenu()">Luxury Stay</a>
+        <a href="insurance.html" onclick="toggleMenu()">Insurance</a>
+        <a href="javascript:void(0)" onclick="openChat(); toggleMenu()">24/7 Support</a>
+      </div>
+    </div>
+    <a href="contact-us.html" onclick="toggleMenu()">Contact</a>
+    <a href="login.html" onclick="toggleMenu()">Login</a>
+    <a href="portfolio.html" onclick="toggleMenu()">Gallery</a>
+  </div>
+</nav>
+    <script>
+  function toggleMenu() {
+    const sidebar = document.getElementById("navSidebar");
+    const hamburger = document.getElementById("hamburgerBtn");
+    sidebar.classList.toggle("active");
+    hamburger.textContent = sidebar.classList.contains("active") ? "⛌" : "☰";
+  }
+
+  function toggleSidebarDropdown() {
+    const dropdown = document.getElementById("sidebarDropdown");
+    dropdown.classList.toggle("active");
+  }
+  const langDropdown = document.getElementById("langDropdown");
+  langDropdown.addEventListener("click", function () {
+    this.classList.toggle("active");
+    });
+  document.querySelectorAll('.lang-options div').forEach(lang => {
+    lang.addEventListener('click', function () {
+      alert(`You clicked ${this.textContent}. This is a dummy for UI usability.`);
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!langDropdown.contains(e.target)) {
+      langDropdown.classList.remove('active');
+    }
+    const sidebar = document.getElementById("navSidebar");
+    const hamburger = document.getElementById("hamburgerBtn");
+    if (sidebar && hamburger && !sidebar.contains(e.target) && e.target !== hamburger && sidebar.classList.contains("active")) {
+      sidebar.classList.remove("active");
+      hamburger.textContent = "☰";
+    }
+  });
+  document.querySelectorAll('.sidebar-menu a').forEach(link => {
+    link.addEventListener('click', function() {
+      const sidebar = document.getElementById("navSidebar");
+      const hamburger = document.getElementById("hamburgerBtn");
+      sidebar.classList.remove("active");
+      if (hamburger) hamburger.textContent = "☰";
+    });
+  });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Flight</h1>
+            <p>Discover amazing destinations around the world at unbeatable prices. Book now and start your adventure!</p>
+        </div>
+    </section>
+
+    <!-- Flight Search -->
+    <section class="flight-search">
+        <form class="search-form">
+            <div class="form-group">
+                <label for="from">From</label>
+                <input type="text" id="from" placeholder="City or airport" value="Kuala Lumpur">
+                <div class="swap-btn">⮂</div>
+            </div>
+            <div class="form-group">
+                <label for="to">To</label>
+                <input type="text" id="to" placeholder="City or airport" value="Sabah">
+            </div>
+            <div class="form-group">
+                <label for="depart">Depart</label>
+                <input type="date" id="depart" value="2023-08-15">
+            </div>
+            <div class="form-group">
+                <label for="return">Return</label>
+                <input type="date" id="return" value="2023-08-25">
+            </div>
+            <div class="form-group">
+                <label for="travelers">Travelers</label>
+                <select id="travelers">
+                    <option>1 Traveler</option>
+                    <option selected>2 Travelers</option>
+                    <option>3 Travelers</option>
+                    <option>4 Travelers</option>
+                    <option>5+ Travelers</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="class">Class</label>
+                <select id="class">
+                    <option>Economy</option>
+                    <option>Premium Economy</option>
+                    <option>Business</option>
+                    <option>First Class</option>
+                </select>
+            </div>
+        </form>
+        <button class="search-btn" onclick="searchFlights()">Search Flights</button>
+    </section>
+
+    <script>
+    document.querySelector(".swap-btn").addEventListener("click", function () {
+    const fromInput = document.getElementById("from");
+    const toInput = document.getElementById("to");
+
+    // Swap their values
+    const temp = fromInput.value;
+    fromInput.value = toInput.value;
+    toInput.value = temp;
+    });
+    </script>
+
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="section-title">
+            <h2>Top Flight Deals</h2>
+        </div>
+
+        <!-- Filter Toggle Button (Mobile) -->
+        <button class="filter-toggle-btn" onclick="toggleFilters()">
+            <span id="filterToggleText">🔍 Show Filters</span>
+        </button>
+        
+        <!-- Flight Filters -->
+        <div class="filters">
+            <div class="filter-group">
+                <h3>Airlines</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="airline1" checked>
+                        <label for="airline1">Malaysia Airlines</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="airline2" checked>
+                        <label for="airline2">AirAsia</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="airline3" checked>
+                        <label for="airline3">Batik Airlines</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Price Range</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="price1" checked>
+                        <label for="price1">Under RM 200</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="price2" checked>
+                        <label for="price2">RM 200 - RM 400</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="price3" checked>
+                        <label for="price3">Over RM 400</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h3>Duration</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="duration1" checked>
+                        <label for="duration1">Under 3 hours</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="duration2" checked>
+                        <label for="duration2">3-5 hours</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="duration3" checked>
+                        <label for="duration3">Over 5 hours</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Apply Filters Button -->
+            <button class="apply-filters-btn" onclick="applyFilters()">
+                Apply Filters
+            </button>
+        </div>
+
+        <!-- Flight Deals (All Cards in One Container) -->
+        <div class="deals-container">
+            <!-- Deal 1 -->
+            <div class="deal-card">
+                <div class="card-badge">SAVE 25%</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">Malaysia Airlines</div>
+                </div>
+                <div class="card-body">
+                    <h3>Johor to Kota Kinabalu</h3>
+                       <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">2h 20m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 08:30 AM ➮ 04:15 PM</div>
+                            <div class="location">Direct</div>
+                    </div>
+                    </div>
+                    <div class="price-info">
+                        <div class="price">RM 120</div>
+                        <button class="book-btn" onclick="bookFlight('Johor to Kota Kinabalu')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 2 -->
+            <div class="deal-card">
+                <div class="card-badge">LIMITED SEATS</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">AirAsia</div>
+                </div>
+                <div class="card-body">
+                    <h3>Penang to Tawau</h3>
+                      <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">4h 55m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 08:30 AM ➮ 04:15 PM</div>
+                            <div class="location">Direct</div>
+                    </div>
+                    </div>
+                    <div class="price-info">
+                        <div class="price">RM 329</div>
+                        <button class="book-btn" onclick="bookFlight('Penang to Tawau')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 3 -->
+            <div class="deal-card">
+                <div class="card-badge">HOT DEAL</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">Batik Airlines</div>
+                </div>
+                <div class="card-body">
+                    <h3>Kuala Lumpur to Sadakan</h3>
+                      <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">2h 50m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10:00 AM ➮ 12:50 PM</div>
+                            <div class="location">Direct</div>
+                    </div>
+                      </div>
+                    <div class="price-info">
+                        <div class="price">RM 210</div>
+                        <button class="book-btn" onclick="bookFlight('Kuala Lumpur to Sadakan')">Book Now</button>
+                </div>
+            </div>
+        </div>
+        
+            <!-- Deal 4 -->
+            <div class="deal-card">
+                <div class="card-badge">SAVE 50%</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">Malaysia Airlines</div>
+                </div>
+                <div class="card-body">
+                    <h3>Kuala Lumpur to Kota Kinabalu</h3>
+                       <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">2h 35m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10:00 PM ➮ 12:40 AM </div>
+                            <div class="location">Direct</div>
+                    </div>
+                    </div>
+                    <div class="price-info">
+                        <div class="price">RM 157</div>
+                        <button class="book-btn" onclick="bookFlight('Kuala Lumpur to Kota Kinabalu')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 5 -->
+            <div class="deal-card">
+                <div class="card-badge">HOT DEAL</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">AirAsia</div>
+                </div>
+                <div class="card-body">
+                    <h3>Ipoh to Lahad Batu</h3>
+                      <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">4h 55m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 05.15 AM ➮ 10:10 PM</div>
+                            <div class="location">Direct</div>
+                    </div>
+                    </div>
+                    <div class="price-info">
+                        <div class="price">RM 618</div>
+                        <button class="book-btn" onclick="bookFlight('Ipoh to Lahad Batu')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 6 -->
+            <div class="deal-card">
+                <div class="card-badge">HOT DEAL</div>
+                <div class="airline-info">
+                    <div class="airline-logo">✈︎</div>
+                    <div class="airline-name">Batik Airlines</div>
+                </div>
+                <div class="card-body">
+                    <h3>Penang to Sadakan</h3>
+                      <div class="flight-info">
+                        <div class="flight-detail">
+                            <div class="time">5h 30m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3:30 PM ➮ 7:00 PM</div>
+                            <div class="location">Direct</div>
+                    </div>
+                      </div>
+                    <div class="price-info">
+                        <div class="price">RM 291</div>
+                        <button class="book-btn" onclick="bookFlight('Penang to Sadakan')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- trust badges section-->
+  <section class="trust-badges">
+  <h2>Trusted and Recognised</h2>
+  <div class="badges-container">
+    <img src="image/tripadvisor-badge.png" alt="TripAdvisor Travelers' Choice">
+    <img src="image/eco-tourism-award.png" alt="Eco Tourism Award">
+    <img src="image/unesco-logo.png" alt="UNESCO World Heritage">
+    <img src="image/msta.png" alt="Malaysia Sustainable Tourism Association">
+    <img src="image/iata.png" alt="IATA Accredited">
+  </div>
+  </section>
+
+<!--vertical footer section-->
+  <footer class="vertical-footer">
+  <br>
+  <p class="footer-title"> Copyright &copy; 2025 HopNTrip ✈ &#124; All Rights Reserved</p>
+  <br />
+
+  <footer class="vertical-footer">
+  <div class="footer-links">
+    <a href="javascript:void(0);" data-section="faqs">FAQs</a>
+    <a href="javascript:void(0);" data-section="terms">Terms and Conditions</a>
+    <a href="javascript:void(0);" data-section="packages">Travel Packages</a>
+    <a href="javascript:void(0);" data-section="booking">Booking and Payment Info</a>
+    <a href="javascript:void(0);" data-section="refund">Return and Refund Policy</a>
+    <a href="javascript:void(0);" data-section="safety">Safety and Tips</a>
+    <a href="javascript:void(0);" data-section="collab">Collaboration with Us</a>
+  </div>
+  <br /> 
+
+  <div class="social-icons">
+    <img src="image/youtube-icon.png" alt="YouTube" />
+    <img src="image/facebook-icon.png" alt="Facebook" />
+    <img src="image/instagram-icon.png" alt="Instagram" />
+    <img src="image/whatsapp-icon.png" alt="Whatsapp" />
+    <img src="image/tiktok-icon.png" alt="Tiktok" />
+  </div>
+  <br />
+  
+  <p class="footer-chat">
+    <span>Planning your trip?</span>
+    <a href="javascript:void(0)" class="chat-link" onclick="openChat()">Get Help Now</a>
+  </p>
+
+  <div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <span>Help Chat</span>
+    <button onclick="closeChat()">✖</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <p id="chatGreeting"><strong>Agent:</strong> Need a hand with your trip? 🤗</p>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatMessage" placeholder="Type your message..."/>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+</footer>
+
+<div id="footerModal">
+  <div class="content">
+    <span class="close">&times;</span>
+    <h3 id="footerModalTitle">Information</h3>
+    <div id="footerModalBody"></div>
+  </div>
+</div>
+
+<button class="scroll-up" onclick="scrollToTop()">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+</footer>
+
+<script>
+  const footerModalData = {
+
+  faqs:`
+<h3>🌍 General</h3>
+<ol>
+  <li><p><strong>Q: When is the best time to visit Sabah?</strong><br>A: March to October is the driest period—ideal for outdoor activities. However, cultural tours and wildlife viewing are available year-round.</p></li>
+  <li><p><strong>Q: Is the Mount Kinabalu climbing permit included?</strong><br>A: Yes, all summit packages cover permits, park fees, mountain guides, and basic mountain lodge accommodations.</p></li>
+  <li><p><strong>Q: Are meals included in the travel packages?</strong><br>A: Most packages include breakfast and selected meals. You can check the specific inclusions in each itinerary.</p></li>
+  <li><p><strong>Q: Do I need travel insurance?</strong><br>A: While not compulsory, we highly recommend travel insurance that covers medical, cancellations, and outdoor adventures.</p></li>
+  <li><p><strong>Q: Can I customize my itinerary?</strong><br>A: Definitely! Our team is happy to create a trip that fits your interests, pace, and travel goals.</p></li>
+</ol>
+
+<h3>👨‍👩‍👧‍👦 Families</h3>
+<ol start="6">
+  <li><p><strong>Q: Are the tours kid-friendly?</strong><br>A: Yes! We offer family-friendly activities like wildlife parks, cultural villages, and gentle hikes. Age suitability is noted in each package.</p></li>
+  <li><p><strong>Q: Do accommodations offer family facilities?</strong><br>A: Many of our partner resorts and lodges provide family rooms, pools, kids' menus, and play areas. Just let us know your needs.</p></li>
+  <li><p><strong>Q: Are car seats or child carriers available?</strong><br>A: Upon request, we can provide car seats and recommend operators with child-friendly equipment for tours.</p></li>
+  <li><p><strong>Q: What if my child has special dietary needs?</strong><br>A: Just inform us in advance and we'll coordinate with hotels and meal providers to accommodate dietary restrictions.</p></li>
+</ol>
+
+<h3>⛰️ Adventure Seekers</h3>
+<ol start="10">
+  <li><p><strong>Q: Do I need prior experience for activities like rafting or climbing?</strong><br>A: No prior experience is needed for most activities. Our guides provide safety briefings and basic training before each adventure. However, a moderate level of fitness is recommended.</p></li>
+  <li><p><strong>Q: What gear should I bring for trekking or jungle expeditions?</strong><br>A: Lightweight hiking boots, long-sleeved clothing, insect repellent, a waterproof bag cover, and a headlamp are highly recommended. We'll send you a full packing checklist before your trip.</p></li>
+  <li><p><strong>Q: Is equipment like helmets and life jackets provided?</strong><br>A: Yes, all necessary safety equipment is included in guided activities like rafting, caving, or zip-lining.</p></li>
+  <li><p><strong>Q: Can I book multi-day expeditions or survival trips?</strong><br>A: Absolutely! We offer multi-day jungle survival experiences, wildlife trekking, and remote expeditions to places like Maliau Basin and Danum Valley.</p></li>
+  <li><p><strong>Q: Are the adventure tours safe?</strong><br>A: Your safety is our priority. All tours are led by licensed, trained guides and follow strict safety protocols. Weather and terrain are assessed before every trip.</p></li>
+</ol>
+
+<h3>💑 Couples & Romantic</h3>
+<ol start="16">
+  <li><p><strong>Q: What's a good honeymoon or anniversary idea?</strong><br>A: Private island picnics, sunset cruises, and glass cabin stays in Kundasang are just a few of our romantic bestsellers!</p></li>
+  <li><p><strong>Q: Can we request special arrangements (flowers, surprises)?</strong><br>A: Yes! We love helping with surprises—just let us know what you have in mind and we'll handle the rest.</p></li>
+  <li><p><strong>Q: Are spa or couple massage options available?</strong><br>A: Definitely. We can include couple spa sessions or thermal spring visits in your itinerary for added relaxation.</p></li>
+</ol>
+
+<h3>🧍 Solo Travelers</h3>
+<ol start="13">
+  <li><p><strong>Q: Is Sabah safe for solo travelers?</strong><br>A: Yes, Sabah is generally safe, and we partner with trusted operators. You'll also have 24/7 support from our team if needed.</p></li>
+  <li><p><strong>Q: Will I meet other travelers?</strong><br>A: Absolutely! We offer small-group tours and community experiences where you can connect with fellow adventurers.</p></li>
+  <li><p><strong>Q: Can I join just part of a group itinerary?</strong><br>A: Yes, flexible options are available so you can join a day trip or two while enjoying solo time as well.</p></li>
+</ol>
+`,
+
+  terms:`
+<ol>
+  <li><p><strong>Booking Confirmation:</strong> All bookings are subject to availability and are confirmed only upon receipt of full payment or a deposit.</p></li>
+  <li><p><strong>Pricing:</strong> All prices are quoted in Malaysian Ringgit (MYR) and are subject to change in the event of currency fluctuations, government taxes, or supplier adjustments.</p></li>
+  <li><p><strong>Deposit & Payment:</strong> A non-refundable deposit of 30% is required to secure your booking. The remaining balance must be paid in full at least 30 days before departure.</p></li>
+  <li><p><strong>Booking Changes:</strong> Requests for changes must be submitted in writing and are subject to approval and availability. No changes can be made within 7 days of the scheduled trip.</p></li>
+  <li><p><strong>Cancellation & Refunds:</strong> Cancellations are subject to fees based on notice period. Where eligible, refunds will be processed within 14 business days, minus any applicable charges.</p></li>
+  <li><p><strong>Itinerary Adjustments:</strong> HopNTrip reserves the right to cancel or modify itineraries due to weather conditions, safety concerns, or other unforeseen circumstances.</p></li>
+  <li><p><strong>Health & Insurance:</strong> Participants must ensure they are physically fit for the selected activities and must have valid travel insurance that covers adventure and outdoor experiences.</p></li>
+  <li><p><strong>Liability Disclaimer:</strong> HopNTrip is not liable for any loss, injury, or damage incurred during the trip, except as required under applicable laws.</p></li>
+  <li><p><strong>Privacy Policy:</strong> All personal information provided during booking will be kept confidential and used solely for trip coordination, communication, and safety purposes. We do not sell or share your data with third parties without consent, except as required by law.</p></li>
+  <li><p><strong>Travel Documents:</strong> It is the responsibility of each participant to ensure they have valid passports, visas (if applicable), and any other travel documents required by Malaysian law or their home country. HopNTrip will not be held responsible for denied entry due to incomplete documentation.</p></li>
+  <li><p><strong>Child Policy:</strong> Children under 12 must be accompanied by a parent or legal guardian. Some tours may have minimum age requirements for safety reasons. Child rates may apply for selected packages and will be clearly stated in the trip details.</p></li>
+  <li><p><strong>Force Majeure:</strong> HopNTrip shall not be held liable for any failure or delay in performance of its obligations due to events beyond its reasonable control, including but not limited to natural disasters, pandemics, strikes, war, political unrest, government regulations, or acts of God. In such cases, affected bookings may be postponed or adjusted in accordance with the situation. Refunds, if applicable, will be assessed on a case-by-case basis.</p></li>
+</ol>
+    `,
+
+  packages: `
+<ol>
+  <li><p><strong>4D3N Sandakan Wildlife Loop - from RM1,899</strong><br>Discover Borneo's wildlife gems — orangutans, sun bears, and river cruises along Kinabatangan. Includes entrance fees, eco-lodge accommodation, guided tours, transfers, and daily breakfast.</p></li>
+  <li><p><strong>3D2N Mount Kinabalu Climb - from RM1,490</strong><br>Conquer Southeast Asia's highest peak with an overnight stay at Panalaban Base Camp. Includes park entrance, climbing permit, certified mountain guide, accommodation, meals, and return transfers.</p></li>
+  <li><p><strong>2D1N Kota Kinabalu & Islands - from RM1,099</strong><br>Explore the city, savor local cuisine, and island-hop to Tunku Abdul Rahman Marine Park. Package includes hotel stay, island transfers, snorkeling gear, and city tour with a licensed guide.</p></li>
+</ol>
+<p><strong>All packages include:</strong> Accommodation, permits, transportation, professional guide, and selected meals unless otherwise stated.</p>
+<p><strong>Optional Add-ons:</strong> Airport pickup, private guide upgrade, cultural night shows, or extra night stays (charges apply).</p>
+<p><strong>Customize Your Trip:</strong> All packages can be tailored to your preferences. Pricing will vary depending on your chosen destinations, vehicle types, group size, and activities.</p>
+<p>Ready to plan your trip? <a href="contact-us.html"><strong>Contact us</strong></a> and let's design your ideal Sabah getaway!</p>
+
+    `,
+
+  booking: `
+<p>At HopNTrip, we aim to make your travel planning seamless and secure. Our 💳 booking process is designed to offer flexibility, transparency, and convenience from start to finish—ensuring your trip begins stress-free and with full peace of mind.</p>
+<ol>
+  <li><p><strong>Secure Online Payments:</strong> All transactions are processed through trusted gateways including Stripe and iPay88, which support a wide range of payment options such as Visa, Mastercard, FPX online banking, and leading e-wallets (Touch 'n Go, GrabPay, Boost, etc.). Your financial data is encrypted and protected using industry-standard security protocols.</p></li>
+  <li><p><strong>Deposit & Balance Policy:</strong> To confirm your reservation, a non-refundable deposit of 30% of the total package cost is required at the time of booking. The remaining balance must be settled no later than 30 days prior to the trip departure date. Failure to complete payment within this period may result in the cancellation of your booking without refund of the deposit.</p></li>
+  <li><p><strong>Instant Booking Confirmation:</strong> Once payment is received, you will receive a confirmation email with your e-voucher, official payment receipt, and a downloadable PDF copy of your itinerary. All documentation is sent directly to the email provided during booking. Please ensure your contact details are correct for timely delivery.</p></li>
+  <li><p><strong>Last-Minute Bookings:</strong> For trips booked within 30 days of the departure date, full payment is required upfront to secure your spot. These bookings are subject to availability and may have limited customization options depending on the package and time frame.</p></li>
+  <li><p><strong>Support for Manual Booking:</strong> Prefer a more personal approach? Our dedicated travel consultants are happy to guide you through the manual booking process via WhatsApp or email. This option is ideal for complex itineraries, group arrangements, or custom tours requiring detailed planning.</p></li>
+</ol>
+<p><strong>Custom Requests & Invoices:</strong> If you have special requirements, need additional services, or require a formal invoice for company claims or group billing, our team will be happy to accommodate. We're here to ensure your booking experience is smooth, flexible, and fully tailored to your preferences.</p>
+<p>Have questions before booking? <a href="contact-us.html"><strong>Reach out to us</strong></a> and we'll be glad to assist you every step of the way.</p>
+    `,
+
+  refund:`
+<p>At HopNTrip, we understand that travel plans may need to change unexpectedly. Our 🔁 return and refund policy is designed to be transparent and considerate, while also accounting for the advance arrangements and commitments made on your behalf. We aim to offer flexibility where possible, without compromising on the quality and readiness of our service delivery.</p>
+<ol>
+  <li><p><strong>30 or more days before departure:</strong> Customers are entitled to a full refund of all payments made, excluding any non-refundable third-party fees (e.g. permits or special accommodation deposits where applicable).</p></li>
+  <li><p><strong>15 to 29 days before departure:</strong> A 50% refund of the total tour package price will be issued. This accounts for partial planning costs, logistics, and vendor arrangements already secured.</p></li>
+  <li><p><strong>Less than 15 days before departure:</strong> No refunds will be issued due to the proximity of the travel date and confirmed services. However, you may transfer your booking to another person at no additional charge. Please inform us at least 3 working days in advance for name changes and documentation updates.</p></li>
+  <li><p><strong>Tour operator cancellation (e.g., weather disruptions, safety concerns, or unforeseen circumstances):</strong> In such events, HopNTrip will offer a full refund or a complimentary rescheduling option to an available future date, depending on your preference.</p></li>
+</ol>
+  <p>All approved refunds will be processed within <strong>14 business days</strong> to the original payment method. Please ensure your banking details are accurate to avoid delays.</p>
+  <p>To initiate a refund request or arrange for a name transfer, kindly email us at <a href="mailto:support@hopntrip.my">support@hopntrip.my</a> with your booking reference and reason for the request. Our team will get back to you promptly with the next steps.</p>
+    `,
+
+  safety:  `
+<p>Your 🛡️ safety and comfort are our top priorities. Whether you're exploring Sabah's mountains, islands, or rainforests, following these essential travel tips will help ensure a smooth and enjoyable journey:</p>
+<ol>
+<li><p><strong>Hydration is key:</strong> Always carry at least 1-2 liters of drinking water per person during outdoor excursions, especially in humid or high-altitude areas.</p></li>
+<li><p><strong>Protect yourself and the environment:</strong> Use reef-safe sunscreen and insect repellent to avoid harming marine life and to prevent insect bites during jungle treks or riverside activities.</p></li>
+<li><p><strong>Register with authorities:</strong> Before starting and after completing any hike, climb, or park-based activity, register at the park office for tracking and emergency response purposes.</p></li>
+<li><p><strong>Be first-aid ready:</strong> Pack a small, personal first-aid kit with plasters, antiseptic wipes, painkillers, and motion sickness tablets, especially for long journeys or boat rides.</p></li>
+<li><p><strong>Dress appropriately:</strong> Wear breathable clothing and closed-toe hiking shoes with good grip for jungle paths, rocky trails, or wet conditions. Sandals are not recommended for trekking.</p></li>
+<li><p><strong>Prepare for limited banking access:</strong> Carry cash in small denominations, as many rural or island-based vendors operate on a cash-only basis and ATMs may be scarce.</p></li>
+<li><p><strong>Follow guide instructions:</strong> Your local guide is trained for safety and situational awareness. Always follow their advice, especially during wildlife sightings, boat transfers, or challenging terrain.</p></li>
+<li><p><strong>Stay connected and informed:</strong> Save local emergency contact numbers in your mobile device, and if you're traveling solo, inform someone of your itinerary before heading out.</p></li>
+</ol>
+<p>For further safety support or emergency assistance, you may contact HopNTrip anytime during your trip via our <a href="contact-us.html"><strong>support team</strong></a>.</p>
+    `,
+
+  collab: `
+<p>At HopNTrip, we believe in building strong, purposeful partnerships that promote sustainable tourism, elevate authentic local experiences, and contribute meaningfully to communities across Sabah. Whether you're an individual with a passion for travel or a business aligned with our values, we're excited to explore ways we can work together.</p>
+<ol>
+<li><p><strong>Travel Bloggers, Influencers & Content Creators:</strong> Let's collaborate on story-driven campaigns, destination features, or social takeovers that inspire conscious exploration.</p></li>
+<li><p><strong>Eco-Lodges, Homestays & Experience Providers:</strong> Showcase your unique offerings by joining our curated list of local stays and immersive activities across Sabah.</p></li>
+<li><p><strong>Corporate Teams & CSR Planners:</strong> Organize impactful team-building retreats, eco-volunteering, or community service travel experiences that align with your brand values.</p></li>
+<li><p><strong>Educational Institutions & Student Groups:</strong> Partner with us for study tours, cultural exchanges, or customized learning journeys focused on nature, heritage, and sustainability.</p></li>
+</ol>
+<p>We welcome collaboration proposals of all kinds — from affiliate programs and joint marketing campaigns to media trips and local co-hosted events.</p>
+<p>📧 Email us at <a href="mailto:hello@hopntrip.my">hello@hopntrip.my</a><br>📱 WhatsApp us at <a href="https://wa.me/60168882288" target="_blank">+60 16-888 2288</a></p>
+  `
+};
+
+const footerTitles = {
+  faqs:"FAQs",
+  terms:"Terms and Conditions",
+  packages:"Travel Packages",
+  booking:"Booking and Payment Info",
+  refund:"Return and Refund Policy",
+  safety:"Safety and Tips",
+  collab:"Collaboration with Us"
+};
+
+function openFooterModal(section){
+  document.getElementById("footerModalTitle").textContent =
+      footerTitles[section] || "Information";
+  document.getElementById("footerModalBody").innerHTML =
+      footerModalData[section] || "Content not found.";
+  document.getElementById("footerModal").style.display = "flex";
+}
+function closeFooterModal(){
+  document.getElementById("footerModal").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  document.querySelectorAll(".footer-links a").forEach(a=>{
+    a.addEventListener("click", e=>{
+      e.preventDefault();              
+      openFooterModal(a.dataset.section);
+    });
+  });
+
+  document.querySelector("#footerModal .close").addEventListener("click", closeFooterModal);
+  window.addEventListener("click", e=>{
+    if(e.target.id==="footerModal") closeFooterModal();
+  });
+});
+
+  function openChat() {
+    document.getElementById("chatBox").style.display = "block";
+  }
+
+  function closeChat() {
+    document.getElementById("chatBox").style.display = "none";
+  }
+
+  function sendMessage() {
+  const input = document.getElementById("chatMessage");
+  const message = input.value.trim();
+  if (message !== "") {
+    const chatBody = document.getElementById("chatBody");
+
+    const userMsg = document.createElement("p");
+    userMsg.innerHTML = `<strong>You:</strong> ${message}`;
+    chatBody.appendChild(userMsg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    input.value = "";
+
+    setTimeout(() => {
+      const reply = document.createElement("p");
+      reply.innerHTML = `<strong>Agent:</strong> Thank you! We will get back to you shortly.`;
+      chatBody.appendChild(reply);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 1000);
+  }
+}
+
+  function searchFlights() {
+    alert("Flight search initiated! This is a dummy function for UI demonstration.");
+  }
+
+  function bookFlight(route) {
+    alert(`Flight booking request for "${route}" received! This is a dummy function for UI demonstration.`);
+  }
+
+  // Filter toggle function for mobile responsive design
+  function toggleFilters() {
+    const filters = document.querySelector('.filters');
+    const toggleBtn = document.querySelector('.filter-toggle-btn');
+    const toggleText = document.getElementById('filterToggleText');
+    
+    filters.classList.toggle('active');
+    toggleBtn.classList.toggle('active');
+    
+    if (filters.classList.contains('active')) {
+      toggleText.textContent = '✖️ Hide Filters';
+    } else {
+      toggleText.textContent = '🔍 Show Filters';
+    }
+  }
+
+  // Apply filters function (dummy function for UI demonstration)
+  function applyFilters() {
+    // Get all selected filter options
+    const selectedAirlines = [];
+    const selectedPrices = [];
+    const selectedDurations = [];
+    
+    // Check airline filters
+    if (document.getElementById('airline1').checked) selectedAirlines.push('Malaysia Airlines');
+    if (document.getElementById('airline2').checked) selectedAirlines.push('AirAsia');
+    if (document.getElementById('airline3').checked) selectedAirlines.push('Batik Airlines');
+    
+    // Check price filters
+    if (document.getElementById('price1').checked) selectedPrices.push('Under RM 200');
+    if (document.getElementById('price2').checked) selectedPrices.push('RM 200 - RM 400');
+    if (document.getElementById('price3').checked) selectedPrices.push('Over RM 400');
+    
+    // Check duration filters
+    if (document.getElementById('duration1').checked) selectedDurations.push('Under 3 hours');
+    if (document.getElementById('duration2').checked) selectedDurations.push('3-5 hours');
+    if (document.getElementById('duration3').checked) selectedDurations.push('Over 5 hours');
+    
+    // Create filter summary
+    const filterSummary = {
+      airlines: selectedAirlines,
+      prices: selectedPrices,
+      durations: selectedDurations
+    };
+    
+    // Show confirmation message
+    alert(`Filters applied successfully!\n\nSelected filters:\nAirlines: ${selectedAirlines.join(', ')}\nPrice Range: ${selectedPrices.join(', ')}\nDuration: ${selectedDurations.join(', ')}\n\nThis is a dummy function for UI demonstration.`);
+    
+    // In a real application, this would filter the flight deals based on selections
+    console.log('Applied filters:', filterSummary);
+}
+
+document.querySelectorAll('.social-icons img').forEach(function (icon) {
+  icon.addEventListener('click', function () {
+    alert(icon.alt + " icon clicked! (Dummy link for now)");
+  });
+});
+
+ function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

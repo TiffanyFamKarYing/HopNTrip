@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | HopNTrip - Sabah Tourism Agency</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #2F4F4F;
+      scroll-behavior: smooth;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* === NAVIGATION (EXACT SAME AS LOGIN.HTML) === */
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 999;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      z-index: 1002;
+    }
+
+    .brand-logo {
+      height: 35px;
+      margin-right: 10px;
+      display: none;
+    }
+
+    .brand-name {
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    @media (min-width: 820px) {
+      .nav-brand {
+        position: absolute;
+        left: 20px;
+        top: 13px;
+      }
+
+      .brand-logo {
+        display: block;
+      }
+
+      .brand-name {
+        display: none;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+
+      .nav-center {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nav-toggle,
+      .sidebar-menu {
+        display: none;
+      }
+    }
+
+    @media (max-width: 819px) {
+      .nav-brand {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .brand-logo {
+        display: none;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: 14px;
+        left: 15px;
+      }
+
+      .nav-toggle {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 1.8rem;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .nav-center {
+        display: none;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: white;
+      padding: 20px 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #fdff9d;
+    }
+
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #172443;
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar-menu.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px solid #2F4F4F;
+      padding-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .sidebar-menu a:hover {
+      color: #fdff9d;
+    }
+
+    .sidebar-dropdown {
+      position: relative;
+    }
+
+    .sidebar-dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sidebar-dropdown-header a {
+      color: white;
+      font-size: 1.0rem;
+      transition: color 0.3s;
+      flex: 1;
+    }
+
+    .sidebar-dropdown-header a:hover {
+      color: #fdff9d;
+    }
+
+    .dropdown-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      transition: color 0.3s;
+    }
+
+    .dropdown-toggle-btn:hover {
+      color: #fdff9d;
+    }
+
+    .sidebar-dropdown-menu {
+      display: none;
+      background-color: #172443;
+      margin-top: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .sidebar-dropdown-menu.active {
+      display: block;
+    }
+
+    .sidebar-dropdown-menu a {
+      font-size: 1rem;
+      padding: 12px 15px;
+      border-bottom: 1px solid #2F4F4F;
+      color: white;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    .sidebar-dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-dropdown-menu a:hover {
+      color: #fdff9d;
+    }
+
+    .nav-item.dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      color: #172443;
+      border-radius: 5px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      flex-direction: column;
+      min-width: 170px;
+      top: 40px;
+      left: 0;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #172443;
+      font-size: 14px;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #371d1de1;
+      color: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: flex;
+    }
+
+    @media (max-width: 819px) {
+      .dropdown-menu {
+        position: static;
+        display: none;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .dropdown-menu a {
+        padding-left: 30px;
+        font-size: 1rem;
+      }
+
+      .nav-item.dropdown.active .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .lang-dropdown {
+      cursor: pointer;
+    }
+
+    .lang-icon {
+      font-size: 1.5rem;
+      color: white;
+      margin-top: -2px;
+      display: inline-block;
+    }
+
+    .lang-options {
+      display: none;
+      position: absolute;
+      top: 30px;
+      background-color: white;
+      color: #172443;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .lang-options div {
+      padding: 8px 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .lang-options div:hover {
+      background-color: #f0f0f0;
+    }
+
+    .lang-dropdown.active .lang-options {
+      display: block;
+    }
+
+    /* === CONTACT PAGE SPECIFIC STYLES === */
+    
+    /* Hero Banner */
+.contact-banner {
+  width: 100%;
+  height: 90vh;
+  max-height: 800px;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact-banner img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.contact-banner .content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.277);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.contact-banner h1 {
+  font-size: 40px;
+  margin-bottom: 25px;
+  font-weight: 800;
+}
+
+.contact-banner p {
+  font-size: 17px;
+  line-height: 1.6;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  margin-bottom: 30px;
+}
+
+/* Mobile Responsiveness (600px and below) */
+@media (max-width: 600px) {
+  .contact-banner {
+    height: 80vh;
+    min-height: 400px;
+  }
+  
+  .contact-banner h1 {
+    font-size: 20px; /* ~24px */
+    margin-bottom: 15px;
+  }
+  
+  .contact-banner p {
+    font-size: 0.9rem; /* ~14.4px */
+    line-height: 1.5;
+    margin-bottom: 25px;
+  }
+}
+
+/* Tablet Responsiveness (601px to 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .contact-banner h1 {
+    font-size: 2.5rem; /* ~40px */
+  }
+  
+  .contact-banner p {
+    font-size: 1rem; /* ~16px */
+    padding: 0 30px;
+  }
+}
+
+/* Contact Container - Glass Morphism Style */
+.contact-container {
+  margin: -60px auto 50px;
+  max-width: 1200px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.contact-content {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 600px;
+}
+
+.contact-info-section {
+  flex: 1;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+  position: relative;
+  min-width: 300px;
+}
+
+.contact-form-section {
+  flex: 1;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(157, 42, 42, 0.137) 0%, rgba(83, 38, 38, 0.137) 100%);
+  position: relative;
+  min-width: 300px;
+}
+
+.section-divider {
+  position: absolute;
+  right: 0;
+  top: 10%;
+  height: 80%;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(42, 157, 143, 0.2), transparent);
+}
+
+.contact-info-section h2,
+.contact-form-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #910404;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.contact-info-section h2:after,
+.contact-form-section h2:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #2a9d8f, #1d7873);
+  border-radius: 2px;
+}
+
+/* Contact Info Items */
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(245, 245, 245, 0.6);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border-left: 4px solid #2a9d8f;
+}
+
+.contact-info-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-icon {
+  font-size: 1.3rem;
+  color: rgb(172, 0, 0);
+  margin-right: 15px;
+  margin-top: 3px;
+  min-width: 25px;
+}
+
+.contact-info-content h3 {
+  font-size: 1.1rem;
+  color: #264653;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.contact-info-content p,
+.contact-info-content a {
+  color: #555555;
+  text-decoration: none;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.contact-info-content a:hover {
+  color: #2a9d8f;
+  text-decoration: underline;
+}
+
+/* Video Box */
+.video-showcase {
+  width: 100%;
+  margin: 25px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.video-showcase video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Social Contact Icons */
+.social-contact {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: #f3efef;;
+  border-radius: 50%;
+  color: #000000;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border: 1px solid #e2f0e3;
+}
+
+.social-contact a:hover {
+  background: #2a9d8f;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(42, 157, 143, 0.3);
+}
+
+/* Contact Form Styles */
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #264653;
+  font-size: 0.95rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon .icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #000000;
+  z-index: 2;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 15px 14px 45px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333333;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #2a9d8f;
+  box-shadow: 0 0 0 4px rgba(42, 157, 143, 0.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.form-control::placeholder {
+  color: #777777;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+  padding-top: 15px;
+  padding-left: 45px;
+}
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a9d8f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #d78787 0%, #910404 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(42, 157, 143, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Form Messages */
+.success-message,
+.error-message {
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  display: none;
+}
+
+.success-message {
+  background-color: rgba(42, 157, 143, 0.1);
+  border-left: 4px solid #2a9d8f;
+  color: #1d7873;
+}
+
+.error-message {
+  background-color: rgba(231, 76, 60, 0.1);
+  border-left: 4px solid #e74c3c;
+  color: #c0392b;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .contact-banner {
+    height: 70vh;
+  }
+  
+  .contact-container {
+    width: 95%;
+  }
+  
+  .contact-info-section,
+  .contact-form-section {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-banner {
+    height: 60vh;
+    min-height: 400px;
+  }
+  
+  .contact-content {
+    flex-direction: column;
+  }
+  
+  .contact-info-section,
+  .contact-form-section {
+    width: 100%;
+    flex: none;
+  }
+  
+  .section-divider {
+    display: none;
+  }
+  
+  .contact-container {
+    margin-top: -80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-banner {
+    height: 50vh;
+    min-height: 350px;
+  }
+  
+  .contact-info-section,
+  .contact-form-section {
+    padding: 25px 20px;
+  }
+  
+  .contact-info-item {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .contact-info-icon {
+    font-size: 1.1rem;
+    margin-right: 12px;
+  }
+  
+  .form-control {
+    padding: 12px 15px 12px 40px;
+  }
+  
+  textarea.form-control {
+    min-height: 100px;
+  }
+  
+  .submit-btn {
+    padding: 14px 25px;
+  }
+}
+
+.contact-info-section,
+.contact-form-section {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.contact-form-section {
+  animation-delay: 0.2s;
+}
+
+
+    /* === MODERN MAP SECTION WITH DARK RED COLOR SCHEME === */
+.map-section {
+  padding: 100px 20px;
+  background-color: rgba(157, 42, 42, 0.086);
+  text-align: center;
+  position: relative;
+}
+
+.map-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 60px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #2a9d8f, #80e5d9);
+}
+
+.map-container h2 {
+  color: #8b0000;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.map-container .section-description {
+  color: #555;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.map-content-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.map-info-card {
+  flex: 1;
+  text-align: left;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #8b0000;
+}
+
+.map-info-card h3 {
+  color: #8b0000;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.map-info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.map-info-icon {
+  color: #8b0000;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  margin-top: 3px;
+}
+
+.map-info-text {
+  flex: 1;
+}
+
+.map-info-text h4 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.map-info-text p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.map-wrapper {
+  flex: 1.5;
+  height: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.188);
+  border: 1px solid #eee;
+  position: relative;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* === MAP INFO BOX STYLES === */
+.map-info-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.1);
+  text-align: left;
+  max-width: 240px;
+  z-index: 10;
+  border-bottom: 3px solid #8b0000; /* Changed to bottom border */
+  backdrop-filter: blur(5px);
+}
+
+.map-info-box h4 {
+  color: #8b0000;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+}
+
+.map-info-box p {
+  color: #555;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+}
+
+.map-info-box i {
+  color: #8b0000;
+  margin-right: 10px;
+  font-size: 0.85rem;
+  min-width: 14px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.directions-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 14px 32px;
+  background: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  gap: 10px;
+}
+
+.directions-btn:hover {
+  background: #a00000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+}
+
+.directions-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .map-section {
+    padding: 80px 20px;
+  }
+  
+  .map-container {
+    padding: 50px 40px;
+  }
+  
+  .map-content-wrapper {
+    gap: 30px;
+  }
+  
+  .map-wrapper {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-content-wrapper {
+    flex-direction: column-reverse;
+  }
+  
+  .map-info-card,
+  .map-wrapper {
+    width: 100%;
+  }
+  
+  .map-info-card {
+    margin-top: 30px;
+  }
+  
+  .map-info-box {
+    position: relative;
+    top: auto;
+    right: auto;
+    max-width: 100%;
+    margin: 20px 0 0 0;
+    border-top: 3px solid #8b0000; /* Revert to top border on mobile */
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .map-section {
+    padding: 60px 15px;
+  }
+  
+  .map-container {
+    padding: 40px 25px;
+    border-radius: 12px;
+  }
+  
+  .map-container h2 {
+    font-size: 2rem;
+  }
+  
+  .map-container .section-description {
+    font-size: 1rem;
+  }
+  
+  .map-info-card {
+    padding: 25px;
+  }
+  
+  .map-wrapper {
+    height: 350px;
+  }
+  
+  .directions-btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}
+
+    .trust-badges {
+  background-color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.trust-badges h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #000;
+}
+
+.badges-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  align-items: center;
+}
+
+.badges-container img {
+  height: 50px;
+  width: auto;
+  filter: grayscale(30%);
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.badges-container img:hover {
+  filter: none; /* Only remove grayscale, no scaling */
+}
+
+    @media (max-width: 600px) {
+        /* Trust Badges - Mobile */
+  .trust-badges {
+    padding: 30px 15px;
+  }
+  
+  .trust-badges h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  .badges-container {
+    gap: 10px;
+  }
+  
+  .badges-container img {
+    height: 25px;
+  }
+}
+
+/* Desktop and Large Screens (901px and above) */
+@media (min-width: 901px) {
+  /* Trust Badges - Desktop */
+  .trust-badges {
+    padding: 50px 30px;
+  }
+  
+  .trust-badges h2 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .badges-container {
+    gap: 30px;
+  }
+  
+  .badges-container img {
+    height: 60px;
+  }
+}
+
+    /* Footer - Exact same as login.html */
+    .vertical-footer {
+      background-color: #172443;
+      color: #ffffff;
+      text-align: center;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      min-height: 44rem;
+    }
+
+    .vertical-footer .footer-title {
+      font-size: 1rem;
+      margin: 0;
+      text-align: center;
+    }
+
+    .vertical-footer .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .vertical-footer .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .footer-links a:hover {
+      color: #fdff9d;
+    }
+
+    #footerModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #footerModal .content {
+      background: #fff;
+      color: #000;
+      width: 92%;
+      max-width: 600px;
+      padding: 24px 28px 32px;
+      border-radius: 12px;
+      position: relative;
+      animation: slideIn .35s ease;
+      overflow-y: auto;
+      max-height: 85vh;
+      text-align: left;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    #footerModal .close {
+      font-size: 26px;
+      font-weight: bold;
+      top: 14px;
+      right: 20px;
+      cursor: pointer;
+      color: #333;
+      background: none;
+      border: none;
+      position: absolute;
+      z-index: 1002;
+      transition: color 0.2s ease;
+    }
+
+    #footerModal .close:hover {
+      color: #c00;
+    }
+
+    #footerModalTitle {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody h3 {
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-size: 22px;
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody p {
+      margin-bottom: 14px;
+      line-height: 1.6;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    #footerModalBody ol li {
+      margin-bottom: 12px;
+      text-align: justify;
+      line-height: 1.6;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody ol li p {
+      margin-bottom: 8px;
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #footerModalBody strong {
+      color: #172443;
+      font-weight: 600;
+    }
+
+    #footerModalBody a {
+      color: #ffb347;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #footerModalBody a:hover {
+      color: #ffa726;
+      text-decoration: underline;
+    }
+
+    #footerModal ul {
+      padding-left: 20px;
+    }
+
+    .vertical-footer .social-icons {
+      display: flex;
+      flex-direction: row; 
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .vertical-footer .social-icons img {
+      width: 25px; 
+      height: 25px; 
+      object-fit: contain;
+      transition: transform 0.3s ease; 
+    }
+
+    .vertical-footer .social-icons img:hover {
+      transform: scale(1.1);
+    }
+
+    .vertical-footer .footer-chat {
+      font-size: 0.95rem;
+    }
+
+    .vertical-footer .chat-link {
+      color: #ff0000;
+      text-decoration: underline;
+    }
+    
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #f44336;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-body {
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 14px;
+      color: #333;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      line-height: 1.4;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      font-size: 14px;
+      border-right: 1px solid #ccc;
+    }
+
+    .chat-input button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Success/Error Messages */
+    .success-message {
+      background: linear-gradient(135deg, #48bb78, #38a169);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    .error-message {
+      background: linear-gradient(135deg, #f56565, #e53e3e);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .contact-banner {
+        height: 500px;
+      }
+      
+      .contact-banner h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-banner p {
+        font-size: 1rem;
+      }
+      
+      .contact-container {
+        margin: -40px 15px 40px;
+        width: calc(100% - 30px);
+        border-radius: 20px;
+      }
+      
+      .contact-content {
+        flex-direction: column;
+      }
+      
+      .contact-info-section,
+      .contact-form-section {
+        padding: 35px 25px;
+      }
+      
+      .section-divider {
+        display: none;
+      }
+      
+      .contact-info-section h2,
+      .contact-form-section h2 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      
+      .contact-info-section h2:after,
+      .contact-form-section h2:after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .map-wrapper {
+        height: 300px;
+      }
+      
+      .map-container {
+        padding: 25px;
+      }
+      
+      
+      .social-contact {
+        justify-content: center;
+      }
+      
+      .chat-box {
+        width: 280px;
+        bottom: 80px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-banner {
+        height: 400px;
+      }
+      
+      .contact-banner h1 {
+        font-size: 1.8rem;
+      }
+      
+      .contact-container {
+        margin: -30px 10px 30px;
+        width: calc(100% - 20px);
+      }
+      
+      .contact-info-section,
+      .contact-form-section {
+        padding: 25px 20px;
+      }
+      
+      .form-control {
+        padding: 12px 12px 12px 40px;
+      }
+      
+      .input-icon .icon {
+        left: 12px;
+      }
+    }
+
+        .scroll-up {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #f09526;
+    border: none;
+    border-radius: 50%;
+    padding: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .scroll-up:hover {
+    background-color: #0cc5ea;
+    transform: translateY(-4px);
+  }
+
+  .scroll-up .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .brand-name {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Navigation - Exact same as login.html -->
+  <nav>
+    <div class="nav-brand">
+      <img src="image/HopNTrip-logo.png" alt="Logo" class="brand-logo"> 
+      <div class="brand-name">HopNTrip</div>
+    </div>
+
+    <div class="lang-dropdown" id="langDropdown">
+      <span class="lang-icon">🌐</span>
+      <div class="lang-options">
+        <div data-lang="en">EN</div>
+        <div data-lang="bm">BM</div>
+        <div data-lang="cn">CN</div>
+      </div>
+    </div>
+
+    <div class="nav-toggle" id="hamburgerBtn" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-center">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about-us.html">About</a>
+        <div class="nav-item dropdown">
+          <a href="services.html" class="dropdown-toggle">Services ▾</a>
+          <div class="dropdown-menu">
+            <a href="tours.html">Tour Packages</a>
+            <a href="flighbooking.html">Flight Booking</a>
+            <a href="hotels.html">Luxury Stay</a>
+            <a href="insurance.html">Insurance</a>
+            <a href="javascript:void(0)" class="chat-link" onclick="openChat()">24/7 Support</a>
+          </div>
+        </div>
+        <a href="contact-us.html">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="portfolio.html">Gallery</a>
+      </div>
+    </div>
+
+    <div class="sidebar-menu" id="navSidebar">
+      <a href="index.html" onclick="toggleMenu()">Home</a>
+      <a href="about-us.html" onclick="toggleMenu()">About</a>
+      <div class="sidebar-dropdown">
+        <div class="sidebar-dropdown-header">
+          <a href="services.html" onclick="toggleMenu()">Services</a>
+          <button onclick="toggleSidebarDropdown()" class="dropdown-toggle-btn">▾</button>
+        </div>
+        <div class="sidebar-dropdown-menu" id="sidebarDropdown">
+          <a href="tours.html" onclick="toggleMenu()">Tour Packages</a>
+          <a href="flighbooking.html" onclick="toggleMenu()">Flight Booking</a>
+          <a href="hotels.html" onclick="toggleMenu()">Luxury Stay</a>
+          <a href="insurance.html" onclick="toggleMenu()">Insurance</a>
+          <a href="javascript:void(0)" onclick="openChat(); toggleMenu()">24/7 Support</a>
+        </div>
+      </div>
+      <a href="contact-us.html" onclick="toggleMenu()">Contact</a>
+      <a href="login.html" onclick="toggleMenu()">Login</a>
+      <a href="portfolio.html" onclick="toggleMenu()">Gallery</a>
+    </div>
+  </nav>
+
+  <!-- Contact Hero Banner -->
+  <div class="contact-banner">
+    <img src="image/sabah_bg.jpg" alt="Beautiful Sabah Landscape" />
+    <div class="content">
+      <h1>Get In Touch With Us</h1>
+      <p>Your Sabah dream trip starts here. Reach out for custom plans or support.</p>
+    </div>
+  </div>
+
+  <!-- Contact Container -->
+  <div class="contact-container">
+    <div class="contact-content">
+      <!-- Contact Information Section -->
+      <div class="contact-info-section">
+        <h2>Contact Information</h2>
+        
+        <!-- Video Showcase -->
+        <div class="video-showcase">
+          <video autoplay loop muted playsinline>
+            <source src="video/fish.mp4" type="video/mp4">
+          </video>
+        </div>
+        
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Our Office</h3>
+            <p>Lot 10, Jalan Gaya<br>88000 Kota Kinabalu, Sabah, Malaysia</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Phone</h3>
+            <p><a href="tel:+60323039100">+603 2303 9100</a></p>
+            <p>Monday to Friday, 9am – 6pm (GMT+8)</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Email</h3>
+            <p><a href="mailto:support@hopntrip.my">support@hopntrip.my</a></p>
+          </div>
+        </div>
+        
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>24/7 Support</h3>
+            <p><a href="tel:+60168882288">+60 16-888 2288</a> (WhatsApp)</p>
+          </div>
+        </div>
+        
+        <div class="social-contact">
+          <a title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <div class="section-divider"></div>
+      </div>
+      
+      <!-- Contact Form Section -->
+      <div class="contact-form-section">
+        <h2>Send Us a Message</h2>
+        
+        <div class="success-message" id="contactSuccess">
+          Thank you for your message! We'll get back to you within 24 hours.
+        </div>
+        
+        <div class="error-message" id="contactError">
+          Please check your information and try again.
+        </div>
+        
+        <form id="contactForm" onsubmit="handleContactForm(event)">
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <div class="input-icon">
+              <i class="fas fa-user icon"></i>
+              <input type="text" id="contactName" name="name" class="form-control" placeholder="Enter your full name" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <div class="input-icon">
+              <i class="fas fa-envelope icon"></i>
+              <input type="email" id="contactEmail" name="email" class="form-control" placeholder="your@email.com" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <div class="input-icon">
+              <i class="fas fa-tag icon"></i>
+              <select id="contactSubject" name="subject" class="form-control" required>
+                <option value="">Select a subject</option>
+                <option value="booking">Booking Inquiry</option>
+                <option value="custom">Custom Tour Request</option>
+                <option value="general">General Inquiry</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactInterest">Travel Interest (Optional)</label>
+            <div class="input-icon">
+              <i class="fas fa-map icon"></i>
+              <input type="text" id="contactInterest" name="interest" class="form-control" placeholder="e.g., Mount Kinabalu climb, Island hopping">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactMessage">Your Message</label>
+            <div class="input-icon">
+              <i class="fas fa-comment-alt icon"></i>
+              <textarea id="contactMessage" name="message" class="form-control" placeholder="Tell us about your travel plans or questions..." required></textarea>
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modern Map Section with Dark Red Color Scheme -->
+<section class="map-section">
+  <div class="map-container">
+    <h2>Find Our Office</h2>
+    <p class="section-description">Visit us in Kota Kinabalu to discuss your travel plans in person. We're conveniently located in the city center, opposite Suria Sabah Shopping Mall with easy access to public transportation.</p>
+    
+    <div class="map-wrapper">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15951.140778169263!2d116.07292388715815!3d5.980408684152517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x323b699e1b7edc3d%3A0x3d0dc8b6a60b1c2a!2sKota%20Kinabalu%2C%20Sabah!5e0!3m2!1sen!2smy!4v1719728820304!5m2!1sen!2smy" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      
+      <div class="map-info-box">
+        <h4>Hop & Trip Office</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Lot 10, Jalan Gaya, 88000 Kota Kinabalu</p>
+        <p><i class="fas fa-language"></i> Multilingual staff (EN/BM/CN)</p>
+        <p><i class="fas fa-parking"></i> Free parking available</p>
+        <p><i class="fas fa-subway"></i> 5 min walk from bus stop</p>
+      </div>
+    </div>
+    
+    <a href="https://maps.google.com?daddr=Lot+10,+Jalan+Gaya,+Kota+Kinabalu" class="directions-btn" target="_blank">
+      <i class="fas fa-directions"></i> Get Directions
+    </a>
+  </div>
+</section>
+
+  <!-- Trust Badges Section -->
+  <section class="trust-badges">
+    <h2>Trusted and Recognised</h2>
+    <div class="badges-container">
+      <img src="image/tripadvisor-badge.png" alt="TripAdvisor Travelers' Choice">
+      <img src="image/eco-tourism-award.png" alt="Eco Tourism Award">
+      <img src="image/unesco-logo.png" alt="UNESCO World Heritage">
+      <img src="image/msta.png" alt="Malaysia Sustainable Tourism Association">
+      <img src="image/iata.png" alt="IATA Accredited">
+    </div>
+  </section>
+
+  <!-- Footer  -->
+  <footer class="vertical-footer">
+    <br>
+    <p class="footer-title" style="color: white;">Copyright &copy; 2025 HopNTrip ✈ | All Rights Reserved</p>
+    <br />
+
+    <div class="footer-links">
+      <a href="javascript:void(0);" data-section="faqs">FAQs</a>
+      <a href="javascript:void(0);" data-section="terms">Terms and Conditions</a>
+      <a href="javascript:void(0);" data-section="packages">Travel Packages</a>
+      <a href="javascript:void(0);" data-section="booking">Booking and Payment Info</a>
+      <a href="javascript:void(0);" data-section="refund">Return and Refund Policy</a>
+      <a href="javascript:void(0);" data-section="safety">Safety and Tips</a>
+      <a href="javascript:void(0);" data-section="collab">Collaboration with Us</a>
+    </div>
+    <br /> 
+
+    <div class="social-icons">
+      <img src="image/youtube-icon.png" alt="YouTube" />
+      <img src="image/facebook-icon.png" alt="Facebook" />
+      <img src="image/instagram-icon.png" alt="Instagram" />
+      <img src="image/whatsapp-icon.png" alt="Whatsapp" />
+      <img src="image/tiktok-icon.png" alt="Tiktok" />
+    </div>
+    <br />
+    
+    <p class="footer-chat">
+      <span style="color: white;">Planning your trip?</span>
+      <a href="javascript:void(0)" class="chat-link" onclick="openChat()">Get Help Now</a>
+    </p>
+
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <span>Help Chat</span>
+        <button onclick="closeChat()">✖</button>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <p><strong>Agent:</strong> Need a hand with your trip? 🤗</p>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chatMessage" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </footer>
+
+  <div id="footerModal">
+    <div class="content">
+      <span class="close">&times;</span>
+      <h3 id="footerModalTitle">Information</h3>
+      <div id="footerModalBody"></div>
+    </div>
+  </div>
+
+<button class="scroll-up" onclick="scrollToTop()">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+  <script>
+
+    // Navigation Functions 
+    function toggleMenu() {
+      const sidebar = document.getElementById("navSidebar");
+      const hamburger = document.getElementById("hamburgerBtn");
+      sidebar.classList.toggle("active");
+      hamburger.textContent = sidebar.classList.contains("active") ? "⛌" : "☰";
+    }
+
+    function toggleSidebarDropdown() {
+      const dropdown = document.getElementById("sidebarDropdown");
+      dropdown.classList.toggle("active");
+    }
+
+    const langDropdown = document.getElementById("langDropdown");
+    langDropdown.addEventListener("click", function () {
+      this.classList.toggle("active");
+    });
+
+    document.querySelectorAll('.lang-options div').forEach(lang => {
+      lang.addEventListener('click', function () {
+        alert(`You clicked ${this.textContent}. This is a dummy for UI usability.`);
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!langDropdown.contains(e.target)) {
+        langDropdown.classList.remove('active');
+      }
+    });
+
+    // Contact Form Handler
+    function handleContactForm(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value.trim();
+      
+      // Hide previous messages
+      document.getElementById('contactSuccess').style.display = 'none';
+      document.getElementById('contactError').style.display = 'none';
+      
+      // Validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!name || !email || !subject || !message) {
+        document.getElementById('contactError').textContent = 'Please fill in all required fields.';
+        document.getElementById('contactError').style.display = 'block';
+        return;
+      }
+      
+      if (!emailRegex.test(email)) {
+        document.getElementById('contactError').textContent = 'Please enter a valid email address.';
+        document.getElementById('contactError').style.display = 'block';
+        return;
+      }
+      
+      if (message.length < 10) {
+        document.getElementById('contactError').textContent = 'Message must be at least 10 characters long.';
+        document.getElementById('contactError').style.display = 'block';
+        return;
+      }
+      
+      // Show success message
+      document.getElementById('contactSuccess').style.display = 'block';
+      
+      // Reset form
+      document.getElementById('contactForm').reset();
+      
+      // Scroll to success message
+      document.getElementById('contactSuccess').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+
+    // Chat Functions - Same as login.html
+    function openChat() {
+      document.getElementById("chatBox").style.display = "block";
+    }
+
+    function closeChat() {
+      document.getElementById("chatBox").style.display = "none";
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("chatMessage");
+      const message = input.value.trim();
+      if (message !== "") {
+        const chatBody = document.getElementById("chatBody");
+        const userMsg = document.createElement("p");
+        userMsg.innerHTML = `<strong>You:</strong> ${message}`;
+        chatBody.appendChild(userMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        input.value = "";
+        
+        setTimeout(() => {
+          const reply = document.createElement("p");
+          reply.innerHTML = `<strong>Agent:</strong> Thank you! We will get back to you shortly.`;
+          chatBody.appendChild(reply);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+      }
+    }
+
+    // Footer Modal Data - Same as login.html
+    const footerModalData = {
+      faqs: `
+        <h3>🌍 General</h3>
+        <ol>
+          <li><p><strong>Q: When is the best time to visit Sabah?</strong><br>A: March to October is the driest period—ideal for outdoor activities. However, cultural tours and wildlife viewing are available year-round.</p></li>
+          <li><p><strong>Q: Is the Mount Kinabalu climbing permit included?</strong><br>A: Yes, all summit packages cover permits, park fees, mountain guides, and basic mountain lodge accommodations.</p></li>
+          <li><p><strong>Q: Are meals included in the travel packages?</strong><br>A: Most packages include breakfast and selected meals. You can check the specific inclusions in each itinerary.</p></li>
+          <li><p><strong>Q: Do I need travel insurance?</strong><br>A: While not compulsory, we highly recommend travel insurance that covers medical, cancellations, and outdoor adventures.</p></li>
+          <li><p><strong>Q: Can I customize my itinerary?</strong><br>A: Definitely! Our team is happy to create a trip that fits your interests, pace, and travel goals.</p></li>
+        </ol>
+
+        <h3>👨‍👩‍👧‍👦 Families</h3>
+        <ol start="6">
+          <li><p><strong>Q: Are the tours kid-friendly?</strong><br>A: Yes! We offer family-friendly activities like wildlife parks, cultural villages, and gentle hikes. Age suitability is noted in each package.</p></li>
+          <li><p><strong>Q: Do accommodations offer family facilities?</strong><br>A: Many of our partner resorts and lodges provide family rooms, pools, kids' menus, and play areas. Just let us know your needs.</p></li>
+          <li><p><strong>Q: Are car seats or child carriers available?</strong><br>A: Upon request, we can provide car seats and recommend operators with child-friendly equipment for tours.</p></li>
+          <li><p><strong>Q: What if my child has special dietary needs?</strong><br>A: Just inform us in advance and we'll coordinate with hotels and meal providers to accommodate dietary restrictions.</p></li>
+        </ol>
+
+        <h3>⛰️ Adventure Seekers</h3>
+        <ol start="10">
+          <li><p><strong>Q: Do I need prior experience for activities like rafting or climbing?</strong><br>A: No prior experience is needed for most activities. Our guides provide safety briefings and basic training before each adventure. However, a moderate level of fitness is recommended.</p></li>
+          <li><p><strong>Q: What gear should I bring for trekking or jungle expeditions?</strong><br>A: Lightweight hiking boots, long-sleeved clothing, insect repellent, a waterproof bag cover, and a headlamp are highly recommended. We'll send you a full packing checklist before your trip.</p></li>
+          <li><p><strong>Q: Is equipment like helmets and life jackets provided?</strong><br>A: Yes, all necessary safety equipment is included in guided activities like rafting, caving, or zip-lining.</p></li>
+          <li><p><strong>Q: Can I book multi-day expeditions or survival trips?</strong><br>A: Absolutely! We offer multi-day jungle survival experiences, wildlife trekking, and remote expeditions to places like Maliau Basin and Danum Valley.</p></li>
+          <li><p><strong>Q: Are the adventure tours safe?</strong><br>A: Your safety is our priority. All tours are led by licensed, trained guides and follow strict safety protocols. Weather and terrain are assessed before every trip.</p></li>
+        </ol>
+
+        <h3>💑 Couples & Romantic</h3>
+        <ol start="16">
+          <li><p><strong>Q: What's a good honeymoon or anniversary idea?</strong><br>A: Private island picnics, sunset cruises, and glass cabin stays in Kundasang are just a few of our romantic bestsellers!</p></li>
+          <li><p><strong>Q: Can we request special arrangements (flowers, surprises)?</strong><br>A: Yes! We love helping with surprises—just let us know what you have in mind and we'll handle the rest.</p></li>
+          <li><p><strong>Q: Are spa or couple massage options available?</strong><br>A: Definitely. We can include couple spa sessions or thermal spring visits in your itinerary for added relaxation.</p></li>
+        </ol>
+
+        <h3>🧍 Solo Travelers</h3>
+        <ol start="13">
+          <li><p><strong>Q: Is Sabah safe for solo travelers?</strong><br>A: Yes, Sabah is generally safe, and we partner with trusted operators. You'll also have 24/7 support from our team if needed.</p></li>
+          <li><p><strong>Q: Will I meet other travelers?</strong><br>A: Absolutely! We offer small-group tours and community experiences where you can connect with fellow adventurers.</p></li>
+          <li><p><strong>Q: Can I join just part of a group itinerary?</strong><br>A: Yes, flexible options are available so you can join a day trip or two while enjoying solo time as well.</p></li>
+        </ol>
+      `,
+
+      terms: `
+        <ol>
+          <li><p><strong>Booking Confirmation:</strong> All bookings are subject to availability and are confirmed only upon receipt of full payment or a deposit.</p></li>
+          <li><p><strong>Pricing:</strong> All prices are quoted in Malaysian Ringgit (MYR) and are subject to change in the event of currency fluctuations, government taxes, or supplier adjustments.</p></li>
+          <li><p><strong>Deposit & Payment:</strong> A non-refundable deposit of 30% is required to secure your booking. The remaining balance must be paid in full at least 30 days before departure.</p></li>
+          <li><p><strong>Booking Changes:</strong> Requests for changes must be submitted in writing and are subject to approval and availability. No changes can be made within 7 days of the scheduled trip.</p></li>
+          <li><p><strong>Cancellation & Refunds:</strong> Cancellations are subject to fees based on notice period. Where eligible, refunds will be processed within 14 business days, minus any applicable charges.</p></li>
+          <li><p><strong>Itinerary Adjustments:</strong> HopNTrip reserves the right to cancel or modify itineraries due to weather conditions, safety concerns, or other unforeseen circumstances.</p></li>
+          <li><p><strong>Health & Insurance:</strong> Participants must ensure they are physically fit for the selected activities and must have valid travel insurance that covers adventure and outdoor experiences.</p></li>
+          <li><p><strong>Liability Disclaimer:</strong> HopNTrip is not liable for any loss, injury, or damage incurred during the trip, except as required under applicable laws.</p></li>
+          <li><p><strong>Privacy Policy:</strong> All personal information provided during booking will be kept confidential and used solely for trip coordination, communication, and safety purposes. We do not sell or share your data with third parties without consent, except as required by law.</p></li>
+          <li><p><strong>Travel Documents:</strong> It is the responsibility of each participant to ensure they have valid passports, visas (if applicable), and any other travel documents required by Malaysian law or their home country. HopNTrip will not be held responsible for denied entry due to incomplete documentation.</p></li>
+          <li><p><strong>Child Policy:</strong> Children under 12 must be accompanied by a parent or legal guardian. Some tours may have minimum age requirements for safety reasons. Child rates may apply for selected packages and will be clearly stated in the trip details.</p></li>
+          <li><p><strong>Force Majeure:</strong> HopNTrip shall not be held liable for any failure or delay in performance of its obligations due to events beyond its reasonable control, including but not limited to natural disasters, pandemics, strikes, war, political unrest, government regulations, or acts of God. In such cases, affected bookings may be postponed or adjusted in accordance with the situation. Refunds, if applicable, will be assessed on a case-by-case basis.</p></li>
+        </ol>
+      `,
+
+      packages: `
+        <ol>
+          <li><p><strong>4D3N Sandakan Wildlife Loop - from RM1,899</strong><br>Discover Borneo's wildlife gems — orangutans, sun bears, and river cruises along Kinabatangan. Includes entrance fees, eco-lodge accommodation, guided tours, transfers, and daily breakfast.</p></li>
+          <li><p><strong>3D2N Mount Kinabalu Climb - from RM1,490</strong><br>Conquer Southeast Asia's highest peak with an overnight stay at Panalaban Base Camp. Includes park entrance, climbing permit, certified mountain guide, accommodation, meals, and return transfers.</p></li>
+          <li><p><strong>2D1N Kota Kinabalu & Islands - from RM1,099</strong><br>Explore the city, savor local cuisine, and island-hop to Tunku Abdul Rahman Marine Park. Package includes hotel stay, island transfers, snorkeling gear, and city tour with a licensed guide.</p></li>
+        </ol>
+        <p><strong>All packages include:</strong> Accommodation, permits, transportation, professional guide, and selected meals unless otherwise stated.</p>
+        <p><strong>Optional Add-ons:</strong> Airport pickup, private guide upgrade, cultural night shows, or extra night stays (charges apply).</p>
+        <p><strong>Customize Your Trip:</strong> All packages can be tailored to your preferences. Pricing will vary depending on your chosen destinations, vehicle types, group size, and activities.</p>
+        <p>Ready to plan your trip? <a href="contact-us.html"><strong>Contact us</strong></a> and let's design your ideal Sabah getaway!</p>
+      `,
+
+      booking: `
+        <p>At HopNTrip, we aim to make your travel planning seamless and secure. Our 💳 booking process is designed to offer flexibility, transparency, and convenience from start to finish—ensuring your trip begins stress-free and with full peace of mind.</p>
+        <ol>
+          <li><p><strong>Secure Online Payments:</strong> All transactions are processed through trusted gateways including Stripe and iPay88, which support a wide range of payment options such as Visa, Mastercard, FPX online banking, and leading e-wallets (Touch 'n Go, GrabPay, Boost, etc.). Your financial data is encrypted and protected using industry-standard security protocols.</p></li>
+          <li><p><strong>Deposit & Balance Policy:</strong> To confirm your reservation, a non-refundable deposit of 30% of the total package cost is required at the time of booking. The remaining balance must be settled no later than 30 days prior to the trip departure date. Failure to complete payment within this period may result in the cancellation of your booking without refund of the deposit.</p></li>
+          <li><p><strong>Instant Booking Confirmation:</strong> Once payment is received, you will receive a confirmation email with your e-voucher, official payment receipt, and a downloadable PDF copy of your itinerary. All documentation is sent directly to the email provided during booking. Please ensure your contact details are correct for timely delivery.</p></li>
+          <li><p><strong>Last-Minute Bookings:</strong> For trips booked within 30 days of the departure date, full payment is required upfront to secure your spot. These bookings are subject to availability and may have limited customization options depending on the package and time frame.</p></li>
+          <li><p><strong>Support for Manual Booking:</strong> Prefer a more personal approach? Our dedicated travel consultants are happy to guide you through the manual booking process via WhatsApp or email. This option is ideal for complex itineraries, group arrangements, or custom tours requiring detailed planning.</p></li>
+        </ol>
+        <p><strong>Custom Requests & Invoices:</strong> If you have special requirements, need additional services, or require a formal invoice for company claims or group billing, our team will be happy to accommodate. We're here to ensure your booking experience is smooth, flexible, and fully tailored to your preferences.</p>
+        <p>Have questions before booking? <a href="contact-us.html"><strong>Reach out to us</strong></a> and we'll be glad to assist you every step of the way.</p>
+      `,
+
+      refund: `
+        <p>At HopNTrip, we understand that travel plans may need to change unexpectedly. Our 🔁 return and refund policy is designed to be transparent and considerate, while also accounting for the advance arrangements and commitments made on your behalf. We aim to offer flexibility where possible, without compromising on the quality and readiness of our service delivery.</p>
+        <ol>
+          <li><p><strong>30 or more days before departure:</strong> Customers are entitled to a full refund of all payments made, excluding any non-refundable third-party fees (e.g. permits or special accommodation deposits where applicable).</p></li>
+          <li><p><strong>15 to 29 days before departure:</strong> A 50% refund of the total tour package price will be issued. This accounts for partial planning costs, logistics, and vendor arrangements already secured.</p></li>
+          <li><p><strong>Less than 15 days before departure:</strong> No refunds will be issued due to the proximity of the travel date and confirmed services. However, you may transfer your booking to another person at no additional charge. Please inform us at least 3 working days in advance for name changes and documentation updates.</p></li>
+          <li><p><strong>Tour operator cancellation (e.g., weather disruptions, safety concerns, or unforeseen circumstances):</strong> In such events, HopNTrip will offer a full refund or a complimentary rescheduling option to an available future date, depending on your preference.</p></li>
+        </ol>
+        <p>All approved refunds will be processed within <strong>14 business days</strong> to the original payment method. Please ensure your banking details are accurate to avoid delays.</p>
+        <p>To initiate a refund request or arrange for a name transfer, kindly email us at <a href="mailto:support@hopntrip.my">support@hopntrip.my</a> with your booking reference and reason for the request. Our team will get back to you promptly with the next steps.</p>
+      `,
+
+      safety: `
+        <p>Your 🛡️ safety and comfort are our top priorities. Whether you're exploring Sabah's mountains, islands, or rainforests, following these essential travel tips will help ensure a smooth and enjoyable journey:</p>
+        <ol>
+          <li><p><strong>Hydration is key:</strong> Always carry at least 1-2 liters of drinking water per person during outdoor excursions, especially in humid or high-altitude areas.</p></li>
+          <li><p><strong>Protect yourself and the environment:</strong> Use reef-safe sunscreen and insect repellent to avoid harming marine life and to prevent insect bites during jungle treks or riverside activities.</p></li>
+          <li><p><strong>Register with authorities:</strong> Before starting and after completing any hike, climb, or park-based activity, register at the park office for tracking and emergency response purposes.</p></li>
+          <li><p><strong>Be first-aid ready:</strong> Pack a small, personal first-aid kit with plasters, antiseptic wipes, painkillers, and motion sickness tablets, especially for long journeys or boat rides.</p></li>
+          <li><p><strong>Dress appropriately:</strong> Wear breathable clothing and closed-toe hiking shoes with good grip for jungle paths, rocky trails, or wet conditions. Sandals are not recommended for trekking.</p></li>
+          <li><p><strong>Prepare for limited banking access:</strong> Carry cash in small denominations, as many rural or island-based vendors operate on a cash-only basis and ATMs may be scarce.</p></li>
+          <li><p><strong>Follow guide instructions:</strong> Your local guide is trained for safety and situational awareness. Always follow their advice, especially during wildlife sightings, boat transfers, or challenging terrain.</p></li>
+          <li><p><strong>Stay connected and informed:</strong> Save local emergency contact numbers in your mobile device, and if you're traveling solo, inform someone of your itinerary before heading out.</p></li>
+        </ol>
+        <p>For further safety support or emergency assistance, you may contact HopNTrip anytime during your trip via our <a href="contact-us.html"><strong>support team</strong></a>.</p>
+      `,
+
+      collab: `
+        <p>At HopNTrip, we believe in building strong, purposeful partnerships that promote sustainable tourism, elevate authentic local experiences, and contribute meaningfully to communities across Sabah. Whether you're an individual with a passion for travel or a business aligned with our values, we're excited to explore ways we can work together.</p>
+        <ol>
+          <li><p><strong>Travel Bloggers, Influencers & Content Creators:</strong> Let's collaborate on story-driven campaigns, destination features, or social takeovers that inspire conscious exploration.</p></li>
+          <li><p><strong>Eco-Lodges, Homestays & Experience Providers:</strong> Showcase your unique offerings by joining our curated list of local stays and immersive activities across Sabah.</p></li>
+          <li><p><strong>Corporate Teams & CSR Planners:</strong> Organize impactful team-building retreats, eco-volunteering, or community service travel experiences that align with your brand values.</p></li>
+          <li><p><strong>Educational Institutions & Student Groups:</strong> Partner with us for study tours, cultural exchanges, or customized learning journeys focused on nature, heritage, and sustainability.</p></li>
+        </ol>
+        <p>We welcome collaboration proposals of all kinds — from affiliate programs and joint marketing campaigns to media trips and local co-hosted events.</p>
+        <p>📧 Email us at <a href="mailto:hello@hopntrip.my">hello@hopntrip.my</a><br>📱 WhatsApp us at <a href="https://wa.me/60168882288" target="_blank">+60 16-888 2288</a></p>
+      `
+    };
+
+    const footerTitles = {
+      faqs: "FAQs",
+      terms: "Terms and Conditions",
+      packages: "Travel Packages",
+      booking: "Booking and Payment Info",
+      refund: "Return and Refund Policy",
+      safety: "Safety and Tips",
+      collab: "Collaboration with Us"
+    };
+
+    function openFooterModal(section) {
+      document.getElementById("footerModalTitle").textContent =
+        footerTitles[section] || "Information";
+      document.getElementById("footerModalBody").innerHTML =
+        footerModalData[section] || "Content not found.";
+      document.getElementById("footerModal").style.display = "flex";
+    }
+
+    function closeFooterModal() {
+      document.getElementById("footerModal").style.display = "none";
+    }
+
+    // Initialize footer modal functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".footer-links a").forEach(a => {
+        a.addEventListener("click", e => {
+          e.preventDefault();
+          openFooterModal(a.dataset.section);
+        });
+      });
+
+      document.querySelector("#footerModal .close").addEventListener("click", closeFooterModal);
+      window.addEventListener("click", e => {
+        if (e.target.id === "footerModal") closeFooterModal();
+      });
+
+      // Social icons click handlers
+      document.querySelectorAll('.social-icons img').forEach(function (icon) {
+        icon.addEventListener('click', function () {
+          alert(icon.alt + " icon clicked! (Dummy link for now)");
+        });
+      });
+    });
+
+    document.querySelectorAll('.social-contact a').forEach(function (icon) { 
+  icon.addEventListener('click', function () {
+    alert(icon.getAttribute('title') + " icon clicked! (Dummy link for now)");
+  });
+});
+
+     function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  </script>
+</body>
+</html>
