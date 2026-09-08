@@ -39,8 +39,6 @@ All pages share a common navigation bar, footer, and design language, and link t
 - **Pexels** — stock photography, loaded via hotlinked URLs
 - **Google Maps Embed** — used on the Contact Us page
 
-> ⚠️ Note: All styling and scripting is currently **inline per-page** rather than in shared external files. This means each HTML file is self-contained and easy to open individually, but shared elements (nav, footer, colors) are duplicated across files rather than centralised.
-
 ## 📁 Expected Folder Structure
 
 The pages reference local assets under an `image/` directory that isn't included in this upload. To run the site as intended, create the following structure:
@@ -107,7 +105,7 @@ Since this is a static site with no build step or backend:
 This is a group project. Team members (as credited on the About Us page):
 
 | Name | Student ID |
-|---|---|---|
+|---|---|
 | Tiffany Fam (Leader) | 23052301 |
 | Tan Wei Ting | 23094709 |
 | Teoh En Yi | 2305110 |
