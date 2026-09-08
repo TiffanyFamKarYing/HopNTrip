@@ -39,6 +39,8 @@ All pages share a common navigation bar, footer, and design language, and link t
 - **Pexels** — stock photography, loaded via hotlinked URLs
 - **Google Maps Embed** — used on the Contact Us page
 
+> ⚠️ Note: All styling and scripting is currently **inline per-page** rather than in shared external files. This means each HTML file is self-contained and easy to open individually, but shared elements (nav, footer, colors) are duplicated across files rather than centralised.
+
 ## 📁 Expected Folder Structure
 
 The pages reference local assets under an `image/` directory that isn't included in this upload. To run the site as intended, create the following structure:
@@ -56,17 +58,38 @@ project-root/
 ├── services.html
 ├── tours.html
 └── image/
-    ├── logo1.png
-    ├── HopNTrip logo variants...
-    ├── hero images...
-    ├── hotel1.jpg, hotel2.jpg, hotel3.jpg, hotel_bg.jpg
-    ├── flight_bg.jpg, sabah_bg.jpg, mountain3.jpg
-    ├── team photos (tiff.jpg, enyi.jpg, weiting.jpg, wenxi.jpg, yixuan.jpg)
-    ├── certification badges (iata.png, msta.png)
-    └── social icons (facebook, instagram, tiktok, youtube, tripadvisor, whatsapp)
+    ├── HopNTrip-logo.png, logo1.png
+    ├── hero-banner-about.png
+    ├── nav/icon images: a.png, alerts.png, apple.png, close eye.png, email.png, eye.png,
+    │   flight.png, google.png, hotels.png, insurance.png, map.png, password.png,
+    │   sabah.png, services.png, tag.png, tours.png, user.png
+    ├── page hero/background images: flight_bg.jpg, hotel_bg.jpg, insurance_bg.png,
+    │   mountain3.jpg, sabah_bg.jpg, tour_bg.jpg
+    ├── hotel photos: hotel1.jpg, hotel2.jpg, hotel3.jpg
+    ├── tour/package photos: package1.jpg–package4.jpg, tour1.jpg, tour2.png, tour3.jpg,
+    │   tour4.jpg, tour5.jpg, tour6.jpg
+    ├── destination photos: danum-valley.jpg, island.jpg, khighlands.jpg, kota-kinabalu.jpg,
+    │   kundasang.jpg, mabul.jpg, mkinabalu.jpg, mountkinabalu.jpg, rainforest.jpg,
+    │   rainforest1.jpg, rsafari.jpg, sabah3.jpg, sandakan.jpg, sipadan-island.jpg,
+    │   sislands.jpg, sunset-cruise.jpg, tunku-abdul-rahman-marine-park.jpg, village.jpg
+    ├── traveler/lifestyle photos: adventure-seekers.jpg, family-trip.jpg,
+    │   happy-traveller.png–happy-traveller6.png, orang-utan.jpg, romantic-getaways.jpg,
+    │   solo-travelers.jpg
+    ├── category icons: adventure1.png, adventure2.png, culture1.png, culture2.png,
+    │   nature1.png, nature2.png, nature3.png, wildlife1.png, wildlife2.png
+    ├── team photos: tiff.jpg, enyi.jpg, weiting.jpg, wenxi.jpg, yixuan.jpg
+    ├── certification badges: eco-tourism-award.png, iata.png, msta.png,
+    │   tripadvisor-badge.png, unesco-logo.png
+    └── social icons: facebook.png, facebook-icon.png, instagram-icon.png,
+        tiktok-icon.png, whatsapp-icon.png, youtube-icon.png
+└── video/
+    ├── plane.mp4, Sabah.mp4, SabahView.mp4, SabahView2.mp4, sabah-showcase.mp4 (index.html backgrounds)
+    ├── fish.mp4 (contact-us.html)
+    ├── travel.mp4 (services.html featured video)
+    └── water1.mp4 – water6.mp4 (services.html video gallery)
 ```
 
-Without this `image/` folder populated, pages will load and function but images will appear broken.
+This list was extracted directly from every `src=`/`href=`/`url()` reference across all 10 HTML files, so it should match exactly what's needed — no filler filenames. Without these `image/` and `video/` folders populated, pages will load and function but media will appear broken.
 
 ## 🚀 Getting Started
 
@@ -102,7 +125,7 @@ Since this is a static site with no build step or backend:
 
 ## 👥 Team
 
-This is a group project. Team members (as credited on the About Us page):
+This is a group project. Team members:
 
 | Name | Student ID |
 |---|---|
